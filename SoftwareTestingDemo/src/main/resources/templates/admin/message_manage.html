@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>demo-管理系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <style type="text/css">
+        body{
+            background-color: #f5f5f5;
+            padding-top: 55px;
+        }
+        html {
+            overflow-y: scroll;
+        }
+        :root {
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        :root body {
+            position: absolute;
+        }
+        body {
+            width: 100vw;
+            overflow: hidden;
+        }
+    </style>
+    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/jquery.twbsPagination.js}"></script>
+
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div th:include="layout/left :: left(user=${session.admin},flag=${session.admin}!=null,page='message_manage')"></div>
+        <main class="col-10 ml-auto px-4 mt-4">
+            <div class="col-12 mb-3 pb-3 border-bottom border-gray">
+                <h2>留言审核</h2>
+            </div>
+            <div class="bg-white">
+                <ul class="list-group pt-2 px-3" id="content">
+<!--                    <li class="list-group-item px-3 border-0">-->
+<!--                        <div class="d-flex justify-content-end text-light">-->
+<!--                            <a class="btn-sm btn-success mr-2" data-toggle="collapse" href="#">-->
+<!--                                <span class="glyphicon glyphicon-ok"></span>-->
+<!--                                通过-->
+<!--                            </a>-->
+<!--                            <a class="btn-sm btn-danger" data-toggle="collapse" href="#">-->
+<!--                                <span class="glyphicon glyphicon-remove"></span>-->
+<!--                                驳回-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div class="media border-bottom border-gray">-->
+<!--                            <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32">-->
+<!--                                <rect width="100%" height="100%" fill="#007bff"/></svg>-->
+<!--                            <p class="media-body pb-3 mb-0">-->
+<!--                                <strong class="d-block">@username</strong>-->
+<!--                                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,-->
+<!--                                tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus sdf dsdfsmf osfs-->
+<!--                                sfadf sfse sfs.-->
+<!--                                <br>-->
+<!--                                <small class="float-right">2019-12-10</small>-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                    </li>-->
+                </ul>
+                <div class="d-flex justify-content-center mt-2" id="pagination-demo"></div>
+            </div>
+            <div th:include="layout/footer :: Footer"></div>
+        </main>
+    </div>
+</div>
+<script type="text/javascript">
+    // $(document).ready(function () {
+    //     getPage(1);
+    // });
+
+    $('#pagination-demo').twbsPagination({
+        totalPages: [[${total}]],
+        visiblePages: 5,
+        onPageClick: function (event, page) {
+            getPage(page);
+        }
+    });
+
+    function getPage(page){
+        $.ajax({//根据page去后台加载数据
+            url : "/messageList.do",
+            type : "get",
+            dataType : "json",
+            data : {"page" : page},
+            success : function(data) {
+                appendHtml(data);//处理数据
+                console.log(data);
+            }
+        });
+    }
+    function appendHtml(list) {//此函数用于处理后台返回的数据，根据自己需求来实现页面拼接
+        let tableShow = '';
+        for (let i = 0; i < list.length; i++) {
+            tableShow += '<li class="list-group-item px-3 border-0">\n' +
+                '                        <div class="d-flex justify-content-end text-light">\n' +
+                '                            <a class="btn-sm btn-success mr-2" data-toggle="collapse" href="#" onclick="pass('+list[i].messageID+',this)">\n' +
+                '                                <span class="glyphicon glyphicon-ok"></span>\n' +
+                '                                通过\n' +
+                '                            </a>\n' +
+                '                            <a class="btn-sm btn-danger" data-toggle="collapse" href="#" onclick="reject('+list[i].messageID+',this)">\n' +
+                '                                <span class="glyphicon glyphicon-remove"></span>\n' +
+                '                                驳回\n' +
+                '                            </a>\n' +
+                '                        </div>\n' +
+                '                        <div class="media border-bottom border-gray">\n';
+            if(list[i].picture == '')
+                tableShow += '<img class="mr-2" src="default.jpg" alt="" height="32px" width="32px">\n';
+            else
+                tableShow += '<img class="mr-2" src="'+list[i].picture+'" alt="" height="32px" width="32px">\n';
+            tableShow += '<div class="media-body pb-3 mb-0 small">\n' +
+                '                                <strong class="d-block">@'+list[i].userName+'</strong>\n' +
+                '                                <p>'+list[i].content+'</p>\n' +
+                '                                <small class="float-right">'+list[i].time+'</small>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </li>\n';
+        }
+        if(list.length == 0){
+            tableShow += '<div class="text-center">没有需要审核的留言</div>';
+        }
+        $('#content').html(tableShow);
+    }
+    function pass(messageID,btn) {
+        if (!confirm("确定通过留言？")) {
+            return;
+        }
+
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: "passMessage.do",
+            dataType: "Json",
+            data: {
+                messageID:messageID
+            },
+            async: false,
+            success: function (result) {
+                $(btn).parent().parent().fadeOut();
+                if (result) {
+                    alert("修改成功！");
+                }
+            }
+        });
+    }
+    function reject(messageID,btn) {
+        if (!confirm("确定驳回留言？")) {
+            return;
+        }
+
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: "rejectMessage.do",
+            dataType: "Json",
+            data: {
+                messageID:messageID
+            },
+            async: false,
+            success: function (result) {
+                $(btn).parent().parent().fadeOut();
+                if (result) {
+                    alert("驳回成功！");
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

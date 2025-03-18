@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>demo-管理系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <style type="text/css">
+        body{
+            background-color: #f5f5f5;
+            padding-top: 55px;
+        }
+        html {
+            overflow-y: scroll;
+        }
+        :root {
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        :root body {
+            position: absolute;
+        }
+        body {
+            width: 100vw;
+            overflow: hidden;
+        }
+    </style>
+    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/jquery.twbsPagination.js}"></script>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
+    <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script th:src="@{/js/jquery.twbsPagination.js}"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div th:include="layout/left :: left(user=${session.admin},flag=${session.admin}!=null,page='reservation_manage')"></div>
+        <main class="col-10 ml-auto px-4 mt-4">
+            <div class="col-12 mb-3 pb-3 border-bottom border-gray">
+                <h2>预约订单管理</h2>
+            </div>
+            <div class="card bg-white rounded ">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#tab1" data-toggle="tab">订单统计</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#tab2" data-toggle="tab">订单审核</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tab1">
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-sm"
+                                       data-toggle="table"
+                                       data-pagination="true"
+                                       data-search="true">
+                                    <thead>
+                                    <tr>
+                                        <th data-sortable="true" data-field="id">#</th>
+                                        <th data-sortable="true" data-field="name">场馆名称</th>
+                                        <th data-sortable="true" data-field="reservationDate">预约日期</th>
+                                        <th data-sortable="true" data-field="duration">预约时长</th>
+                                        <th data-sortable="true" data-field="price">支付金额</th>
+                                        <th data-sortable="true" data-field="orderDate">下单日期</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="order: ${order_list}">
+                                        <td th:text="${order.orderID}">101</td>
+                                        <td th:text="${order.venueName}">场馆A</td>
+                                        <td th:text="${#temporals.format(order.startTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                        <td th:text="${order.hours}">4小时</td>
+                                        <td th:text="${order.total}">￥1200</td>
+                                        <td th:text="${#temporals.format(order.orderTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="tab2">
+                            <ul class="list-group pt-2 px-3" id="content">
+<!--                                <li class="list-group-item px-3 border-0">-->
+<!--                                    <div class="d-flex justify-content-end text-light">-->
+<!--                                        <a class="btn-sm btn-success mr-2" data-toggle="collapse" href="#">-->
+<!--                                            <span class="glyphicon glyphicon-ok"></span>-->
+<!--                                            通过-->
+<!--                                        </a>-->
+<!--                                        <a class="btn-sm btn-danger" data-toggle="collapse" href="#">-->
+<!--                                            <span class="glyphicon glyphicon-remove"></span>-->
+<!--                                            驳回-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                                    <div class="media border-bottom border-gray pb-3">-->
+<!--                                        <div class="media-left mr-3">-->
+<!--                                            <img src="https://img.zcool.cn/community/0181bc5b20cf25a80121bbecb074ca.jpg@1280w_1l_2o_100sh.jpg"-->
+<!--                                                 alt="" height="100px" width="100px">-->
+<!--                                        </div>-->
+<!--                                        <div class="media-body">-->
+<!--                                            <h6>-->
+<!--                                                <strong>预约场馆：</strong>-->
+<!--                                                <a th:href="@{venue}">场馆A</a>-->
+<!--                                            </h6>-->
+<!--                                            <h6>-->
+<!--                                                <strong>预约时间：</strong>-->
+<!--                                                2019年12月28日 10:00-->
+<!--                                            </h6>-->
+<!--                                            <h6>-->
+<!--                                                <strong>预约时长：</strong>-->
+<!--                                                5小时-->
+<!--                                            </h6>-->
+<!--                                            <h6>-->
+<!--                                                <strong>支付租金：</strong>-->
+<!--                                                ￥1500-->
+<!--                                            </h6>-->
+<!--                                            <h6>-->
+<!--                                                <strong>场馆地址：</strong>-->
+<!--                                                上海市中心人民广场的南侧黄浦区人民大道201号-->
+<!--                                            </h6>-->
+<!--                                            <small class="float-right">2019-12-10</small>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </li>-->
+
+                            </ul>
+                            <div class="d-flex justify-content-center mt-2" id="pagination-demo"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div th:include="layout/footer :: Footer"></div>
+        </main>
+    </div>
+</div>
+<script type="text/javascript">
+    // $(document).ready(function () {
+    //     getPage(1);
+    // });
+
+    $('#pagination-demo').twbsPagination({
+        totalPages: [[${total}]],
+        visiblePages: 5,
+        onPageClick: function (event, page) {
+            getPage(page);
+        }
+    });
+
+    function getPage(page){
+        $.ajax({//根据page去后台加载数据
+            url : "/admin/getOrderList.do",
+            type : "get",
+            dataType : "json",
+            data : {"page" : page},
+            success : function(data) {
+                appendHtml(data);//处理数据
+                console.log(data);
+            }
+        });
+    }
+    function appendHtml(list) {//此函数用于处理后台返回的数据，根据自己需求来实现页面拼接
+        let tableShow = '';
+        for (let i = 0; i < list.length; i++) {
+            tableShow += '<li class="list-group-item px-3 border-0">\n' +
+                '                                    <div class="d-flex justify-content-end text-light">\n' +
+                '                                        <a class="btn-sm btn-success mr-2" data-toggle="collapse" href="#" onclick="pass('+list[i].orderID+',this)">\n' +
+                '                                            <span class="glyphicon glyphicon-ok"></span>\n' +
+                '                                            通过\n' +
+                '                                        </a>\n' +
+                '                                        <a class="btn-sm btn-danger" data-toggle="collapse" href="#" onclick="reject('+list[i].orderID+',this)">\n' +
+                '                                            <span class="glyphicon glyphicon-remove"></span>\n' +
+                '                                            驳回\n' +
+                '                                        </a>\n' +
+                '                                    </div>\n' +
+                '                    <div class="media border-bottom border-gray pb-3">\n' +
+                '                        <div class="media-left mr-3">\n';
+            tableShow += '</div>\n' +
+                '                        <div class="media-body">\n' +
+                '                            <h6 class="d-flex">\n' +
+                '                                <strong>预约场馆：</strong>\n' +
+                '                                <p class="mb-0">'+list[i].venueName+'</p>\n' +
+                '                            </h6>\n' +
+                '                            <h6 class="d-flex">\n' +
+                '                                <p class="font-weight-bold mb-0">预约时间：</p>\n' +
+                '                                <p class="mb-0">'+list[i].startTime+'</p>\n' +
+                '                            </h6>\n' +
+                '                            <h6 class="d-flex">\n' +
+                '                                <p class="font-weight-bold mb-0">预约时长：</p>\n' +
+                '                                <p class="mb-0">'+list[i].hours+'</p>\n' +
+                '                            </h6>\n' +
+                '                            <h6 class="d-flex">\n' +
+                '                                <p class="font-weight-bold mb-0">支付租金：</p>\n' +
+                '                                <p class="mb-0">￥'+list[i].total+'</p>\n' +
+                '                            </h6>\n' +
+                '                            <small class="float-right">'+list[i].orderTime+'</small>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </li>\n';
+        }
+        if(list.length == 0){
+            tableShow += '<div class="text-center">没有需要审核的订单</div>';
+        }
+        $('#content').html(tableShow);
+    }
+    function pass( orderID,btn) {
+        if (!confirm("确定通过订单？")) {
+            return;
+        }
+
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: "passOrder.do",
+            dataType: "Json",
+            data: {
+               orderID: orderID
+            },
+            async: false,
+            success: function (result) {
+                $(btn).parent().parent().fadeOut();
+                if (result) {
+                    alert("通过成功！");
+                }
+            }
+        });
+    }
+    function reject(orderID,btn) {
+        if (!confirm("确定驳回订单？")) {
+            return;
+        }
+
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: "rejectOrder.do",
+            dataType: "Json",
+            data: {
+                orderID: orderID
+            },
+            async: false,
+            success: function (result) {
+                $(btn).parent().parent().fadeOut();
+                if (result) {
+                    alert("驳回成功！");
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

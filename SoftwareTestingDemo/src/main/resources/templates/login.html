@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录-demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{js/jquery.form.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <style type="text/css">
+        body{
+            background-color: #f5f5f5;
+        }
+    </style>
+
+</head>
+<body>
+<div th:include="layout/header :: header(user=${session.user},flag=${session.user}!=null,page='login')"></div>
+
+<main class="container col-4" style="padding-top: 10%">
+    <form role="form">
+        <div class="text-center mb-5">
+            <h1>用 户 登 录</h1>
+        </div>
+        <div class="form-group mb-4">
+            <label for="userID" class="sr-only">User Name</label>
+            <input type="text" name="userID" class="form-control form-control-lg" id="userID" placeholder="用户名" required autofocus>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" name="password" class="form-control form-control-lg" id="password" placeholder="密码" required>
+        </div>
+        <div class="alert alert-danger" hidden><span class="glyphicon glyphicon-info-sign"></span> 用户名或密码错误，请重新输入！</div>
+        <div class="pt-4">
+            <button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">登 录</button>
+        </div>
+
+    </form>
+
+</main>
+<div th:include="layout/footer :: Footer"></div>
+<script type="text/javascript">
+
+    $("#userID").keyup(function(){
+        let len = $(this).val().length;
+        if(len > 31){
+            $(this).val($(this).val().substring(0,32));
+        }
+    });
+    $("#password").keyup(function(){
+        let len = $(this).val().length;
+        if(len > 15){
+            $(this).val($(this).val().substring(0,16));
+        }
+    });
+
+    $("input").change(function () {
+        $(".alert").attr('hidden', 'hidden');
+        $("#submit").removeAttr("disabled");
+        // alert("登陆失败");
+    });
+    $("form").submit(function () {
+        $("form").ajaxSubmit({
+            url:"loginCheck.do",
+            dataType: "text",
+            type: "post",
+            success: function(data){
+                console.log(data);
+                if(data == 'false') {
+                    $(".alert").removeAttr('hidden');
+                    $("#submit").attr("disabled", "disabled");
+                }
+                else{
+                    alert("登录成功！");
+                    window.location.href = data;
+                }
+
+            }
+        });
+        return false;
+    });
+</script>
+
+</body>
+</html>
