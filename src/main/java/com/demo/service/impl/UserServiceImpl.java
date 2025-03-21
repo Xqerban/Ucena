@@ -25,12 +25,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<User> findByUserID(Pageable pageable) {
-        return userDao.findAllByIsadmin(0,pageable);
+        return userDao.findAllByIsadmin(0, pageable);
     }
 
     @Override
     public User checkLogin(String userID, String password) {
-        return userDao.findByUserIDAndPassword(userID,password);
+        return userDao.findByUserIDAndPassword(userID, password);
     }
 
     @Override

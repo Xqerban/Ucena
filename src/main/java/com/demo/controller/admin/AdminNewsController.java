@@ -22,44 +22,44 @@ public class AdminNewsController {
     private NewsService newsService;
 
     @GetMapping("/news_manage")
-    public String news_manage(Model model){
-        Pageable news_pageable= PageRequest.of(0,10, Sort.by("time").ascending());
-        Page<News> news=newsService.findAll(news_pageable);
-        model.addAttribute("total",news.getTotalPages());
+    public String news_manage(Model model) {
+        Pageable news_pageable = PageRequest.of(0, 10, Sort.by("time").ascending());
+        Page<News> news = newsService.findAll(news_pageable);
+        model.addAttribute("total", news.getTotalPages());
         return "admin/news_manage";
     }
 
     @RequestMapping("/news_add")
-    public String news_add(){
+    public String news_add() {
         return "/admin/news_add";
     }
 
     @RequestMapping("/news_edit")
-    public String news_edit(int newsID,Model model){
-        News news=newsService.findById(newsID);
-        model.addAttribute("news",news);
+    public String news_edit(int newsID, Model model) {
+        News news = newsService.findById(newsID);
+        model.addAttribute("news", news);
         return "/admin/news_edit";
     }
 
     @RequestMapping("/newsList.do")
     @ResponseBody
-    public List<News> newsList(@RequestParam(value = "page",defaultValue = "1")int page){
-        Pageable news_pageable= PageRequest.of(page-1,10, Sort.by("time").descending());
-        Page<News> news=newsService.findAll(news_pageable);
+    public List<News> newsList(@RequestParam(value = "page", defaultValue = "1") int page) {
+        Pageable news_pageable = PageRequest.of(page - 1, 10, Sort.by("time").descending());
+        Page<News> news = newsService.findAll(news_pageable);
         return news.getContent();
     }
 
     @PostMapping("/delNews.do")
     @ResponseBody
-    public boolean delNews(int newsID){
+    public boolean delNews(int newsID) {
         newsService.delById(newsID);
         return true;
 
     }
 
     @PostMapping("/modifyNews.do")
-    public void modifyNews(int newsID,String title,String content,HttpServletResponse response) throws IOException {
-        News news= newsService.findById(newsID);
+    public void modifyNews(int newsID, String title, String content, HttpServletResponse response) throws IOException {
+        News news = newsService.findById(newsID);
         news.setTitle(title);
         news.setContent(content);
         news.setTime(LocalDateTime.now());
@@ -69,7 +69,7 @@ public class AdminNewsController {
 
     @PostMapping("/addNews.do")
     public void addNews(String title, String content, HttpServletResponse response) throws IOException {
-        News news= new News();
+        News news = new News();
         news.setTitle(title);
         news.setContent(content);
         news.setTime(LocalDateTime.now());

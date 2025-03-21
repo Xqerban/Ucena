@@ -21,25 +21,25 @@ public class NewsController {
     private NewsService newsService;
 
     @GetMapping("/news")
-    public String news(Model model,int newsID){
-        News news= newsService.findById(newsID);
-        model.addAttribute("news",news);
+    public String news(Model model, int newsID) {
+        News news = newsService.findById(newsID);
+        model.addAttribute("news", news);
         return "news";
     }
 
     @GetMapping("/news/getNewsList")
     @ResponseBody
-    public Page<News> news_list(@RequestParam(value = "page",defaultValue = "1")int page){
+    public Page<News> news_list(@RequestParam(value = "page", defaultValue = "1") int page) {
         System.out.println("success");
-        Pageable news_pageable= PageRequest.of(page-1,5, Sort.by("time").descending());
+        Pageable news_pageable = PageRequest.of(page - 1, 5, Sort.by("time").descending());
         return newsService.findAll(news_pageable);
     }
 
     @GetMapping("/news_list")
-    public String news_list(Model model){
-        Pageable news_pageable= PageRequest.of(0,5, Sort.by("time").descending());
-        List<News> news_list= newsService.findAll(news_pageable).getContent();
-        model.addAttribute("news_list",news_list);
+    public String news_list(Model model) {
+        Pageable news_pageable = PageRequest.of(0, 5, Sort.by("time").descending());
+        List<News> news_list = newsService.findAll(news_pageable).getContent();
+        model.addAttribute("news_list", news_list);
         model.addAttribute("total", newsService.findAll(news_pageable).getTotalPages());
         return "news_list";
     }

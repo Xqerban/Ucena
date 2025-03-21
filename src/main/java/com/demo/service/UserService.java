@@ -12,7 +12,9 @@ public interface UserService {
      * @return
      */
     User findByUserID(String userID);
+
     User findById(int id);
+
     /**
      * 管理员分页查看用户
      *

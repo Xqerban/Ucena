@@ -3,27 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>新闻动态-demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/jquery.twbsPagination.js}"></script>
 
     <style type="text/css">
-        body{
+        body {
             background-color: #f5f5f5;
             padding-top: 80px;
         }
+
         html {
             overflow-y: scroll;
         }
+
         :root {
             overflow-y: auto;
             overflow-x: hidden;
         }
+
         :root body {
             position: absolute;
         }
+
         body {
             width: 100vw;
             overflow: hidden;
@@ -34,7 +38,7 @@
 
 <div th:include="layout/header :: header(user=${session.user},flag=${session.user}!=null,page='news_list')"></div>
 
-<main role="main" class="container">
+<main class="container" role="main">
     <div class="bg-white rounded shadow">
         <div class="card-header py-3 text-center bg-danger text-light">
             <h5 class="card-title mb-0">新闻</h5>
@@ -61,26 +65,27 @@
         }
     });
 
-    function getPage(page){
+    function getPage(page) {
         $.ajax({//根据page去后台加载数据
-            url : "/news/getNewsList",
-            type : "get",
-            dataType : "json",
-            data : {"page" : page},
-            success : function(data) {
+            url: "/news/getNewsList",
+            type: "get",
+            dataType: "json",
+            data: {"page": page},
+            success: function (data) {
                 appendHtml(data.content);//处理数据
                 console.log(data);
             }
         });
     }
+
     function appendHtml(list) {//此函数用于处理后台返回的数据，根据自己需求来实现页面拼接
         let tableShow = '';
         for (let i = 0; i < list.length; i++) {
             tableShow += '<li class="list-group-item border-0 px-3 py-2">\n' +
                 '                <div class="row mx-0 pb-2 border-bottom border-gray">\n' +
-                '                    <a class="ml-1" href="/news?newsID='+list[i].newsID+'" target="_blank">'+list[i].title+'</a>\n' +
+                '                    <a class="ml-1" href="/news?newsID=' + list[i].newsID + '" target="_blank">' + list[i].title + '</a>\n' +
                 '                    <div class="ml-auto">\n' +
-                '                        <span class="badge badge-secondary">'+list[i].time+'</span>\n' +
+                '                        <span class="badge badge-secondary">' + list[i].time + '</span>\n' +
                 '                    </div>\n' +
                 '                </div>\n' +
                 '            </li>\n';

@@ -1,6 +1,7 @@
 var $table;
+
 //初始化bootstrap-table的内容
-function InitMainTable () {
+function InitMainTable() {
     //记录页面bootstrap-table全局变量$table，方便应用
     var queryUrl = '/TestUser/FindWithPager?rnd=' + Math.random()
     $table = $('#grid').bootstrapTable({
@@ -28,7 +29,7 @@ function InitMainTable () {
         cardView: false,                    //是否显示详细视图
         detailView: false,                  //是否显示父子表
         //得到查询的参数
-        queryParams : function (params) {
+        queryParams: function (params) {
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             var temp = {
                 rows: params.limit,                         //页面大小
@@ -79,13 +80,13 @@ function InitMainTable () {
             field: 'Note',
             title: '备注'
         }, {
-            field:'ID',
+            field: 'ID',
             title: '操作',
             width: 120,
             align: 'center',
             valign: 'middle',
             formatter: actionFormatter
-        }, ],
+        },],
         onLoadSuccess: function () {
         },
         onLoadError: function () {

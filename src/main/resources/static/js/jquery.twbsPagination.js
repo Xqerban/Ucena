@@ -63,7 +63,7 @@
         } else {
             var elements = this.$element;
             var $newListContainer = $([]);
-            elements.each(function(index) {
+            elements.each(function (index) {
                 var $newElem = $("<ul></ul>");
                 $(this).append($newElem);
                 $newListContainer.push($newElem[0]);
@@ -139,7 +139,7 @@
             }
 
             if (this.options.prev) {
-                var prev = pages.currentPage > 1 ? pages.currentPage - 1 : this.options.loop ? this.options.totalPages  : 1;
+                var prev = pages.currentPage > 1 ? pages.currentPage - 1 : this.options.loop ? this.options.totalPages : 1;
                 listItems.push(this.buildItem('prev', prev));
             }
 
@@ -207,7 +207,7 @@
             var _this = this;
             this.$listContainer.children().remove();
             var items = this.buildListItems(pages);
-            $.each(items, function(key, item){
+            $.each(items, function (key, item) {
                 _this.$listContainer.append(item);
             });
 
@@ -222,17 +222,17 @@
                         }
                         break;
                     case 'first':
-                            $this.toggleClass(_this.options.disabledClass, pages.currentPage === 1);
+                        $this.toggleClass(_this.options.disabledClass, pages.currentPage === 1);
                         break;
                     case 'last':
-                            $this.toggleClass(_this.options.disabledClass, pages.currentPage === _this.options.totalPages);
+                        $this.toggleClass(_this.options.disabledClass, pages.currentPage === _this.options.totalPages);
                         break;
                     case 'prev':
-                            $this.toggleClass(_this.options.disabledClass, !_this.options.loop && pages.currentPage === 1);
+                        $this.toggleClass(_this.options.disabledClass, !_this.options.loop && pages.currentPage === 1);
                         break;
                     case 'next':
-                            $this.toggleClass(_this.options.disabledClass,
-                                !_this.options.loop && pages.currentPage === _this.options.totalPages);
+                        $this.toggleClass(_this.options.disabledClass,
+                            !_this.options.loop && pages.currentPage === _this.options.totalPages);
                         break;
                     default:
                         break;
@@ -254,7 +254,7 @@
             });
         },
 
-        changeTotalPages: function(totalPages, currentPage) {
+        changeTotalPages: function (totalPages, currentPage) {
             this.options.totalPages = totalPages;
             return this.show(currentPage);
         },
@@ -318,10 +318,10 @@
         var data = $this.data('twbs-pagination');
         var options = typeof option === 'object' ? option : {};
 
-        if (!data) $this.data('twbs-pagination', (data = new TwbsPagination(this, options) ));
-        if (typeof option === 'string') methodReturn = data[ option ].apply(data, args);
+        if (!data) $this.data('twbs-pagination', (data = new TwbsPagination(this, options)));
+        if (typeof option === 'string') methodReturn = data[option].apply(data, args);
 
-        return ( methodReturn === undefined ) ? $this : methodReturn;
+        return (methodReturn === undefined) ? $this : methodReturn;
     };
 
     $.fn.twbsPagination.defaults = {

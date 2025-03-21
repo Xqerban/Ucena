@@ -22,28 +22,27 @@ public class AdminMessageController {
     private MessageVoService messageVoService;
 
     @GetMapping("/message_manage")
-    public String message_manage(Model model){
-        Pageable message_pageable= PageRequest.of(0,10, Sort.by("time").descending());
-        model.addAttribute("total",messageService.findWaitState(message_pageable).getTotalPages());
+    public String message_manage(Model model) {
+        Pageable message_pageable = PageRequest.of(0, 10, Sort.by("time").descending());
+        model.addAttribute("total", messageService.findWaitState(message_pageable).getTotalPages());
         return "admin/message_manage";
     }
 
     /**
-     *
      * @param page
      * @return
      */
     @GetMapping("/messageList.do")
     @ResponseBody
-    public List<MessageVo> messageList(@RequestParam(value = "page",defaultValue = "1")int page){
-        Pageable message_pageable= PageRequest.of(page-1,10, Sort.by("time").descending());
-        List<Message> messages=messageService.findWaitState(message_pageable).getContent();
+    public List<MessageVo> messageList(@RequestParam(value = "page", defaultValue = "1") int page) {
+        Pageable message_pageable = PageRequest.of(page - 1, 10, Sort.by("time").descending());
+        List<Message> messages = messageService.findWaitState(message_pageable).getContent();
         return messageVoService.returnVo(messages);
     }
 
     @PostMapping("/passMessage.do")
     @ResponseBody
-    public boolean passMessage(int messageID){
+    public boolean passMessage(int messageID) {
 
         messageService.confirmMessage(messageID);
         return true;
@@ -51,7 +50,7 @@ public class AdminMessageController {
 
     @PostMapping("/rejectMessage.do")
     @ResponseBody
-    public boolean rejectMessage(int messageID){
+    public boolean rejectMessage(int messageID) {
 
         messageService.rejectMessage(messageID);
         return true;
@@ -59,7 +58,7 @@ public class AdminMessageController {
 
     @RequestMapping("/delMessage.do")
     @ResponseBody
-    public boolean delMessage(int messageID){
+    public boolean delMessage(int messageID) {
         messageService.delById(messageID);
         return true;
     }
