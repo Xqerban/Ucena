@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface OrderVoService {
     OrderVo returnOrderVoByOrderID(int orderID);
+
     List<OrderVo> returnVo(List<Order> list);
 }

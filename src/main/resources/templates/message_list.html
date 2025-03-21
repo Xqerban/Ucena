@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>留言板-demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
     <script th:src="@{/js/popper.min.js}"></script>
@@ -11,20 +11,24 @@
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/jquery.twbsPagination.js}"></script>
     <style type="text/css">
-        body{
+        body {
             background-color: #f5f5f5;
             padding-top: 80px;
         }
+
         html {
             overflow-y: scroll;
         }
+
         :root {
             overflow-y: auto;
             overflow-x: hidden;
         }
+
         :root body {
             position: absolute;
         }
+
         body {
             width: 100vw;
             overflow: hidden;
@@ -35,17 +39,19 @@
 
 <div th:include="layout/header :: header(user=${session.user},flag=${session.user}!=null,page='message_list')"></div>
 
-<main role="main" class="container">
+<main class="container" role="main">
 
     <div class="card bg-white rounded shadow p-3 mb-3">
-        <form role="form" id="sendMessage" th:action="@{sendMessage}" method="post">
+        <form id="sendMessage" method="post" role="form" th:action="@{sendMessage}">
             <div class="form-group">
-                <input type="text" name="userID" class="form-control" id="userID" required hidden th:value="${session.user.userID}">
-<!--                <input type="text" class="form-control" id="userID" name="userID" hidden  required te th:value="${session.user.userID}"></input>-->
+                <input class="form-control" hidden id="userID" name="userID" required th:value="${session.user.userID}"
+                       type="text">
+                <!--                <input type="text" class="form-control" id="userID" name="userID" hidden  required te th:value="${session.user.userID}"></input>-->
             </div>
             <div class="form-group">
-                <label for="content" class="font-weight-bold sr-only">发布留言</label>
-                <textarea class="form-control" id="content" name="content" rows="3" placeholder="有什么想和大家分享的？" required></textarea>
+                <label class="font-weight-bold sr-only" for="content">发布留言</label>
+                <textarea class="form-control" id="content" name="content" placeholder="有什么想和大家分享的？" required
+                          rows="3"></textarea>
                 <p class="text-muted my-0" id="word">500</p>
             </div>
             <button class="btn btn-danger btn-block col-2 ml-auto" type="submit">发布</button>
@@ -57,10 +63,10 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#tab1" data-toggle="tab">全部留言</a>
+                    <a class="nav-link active" data-toggle="tab" href="#tab1">全部留言</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#tab2" data-toggle="tab">我的留言</a>
+                    <a class="nav-link" data-toggle="tab" href="#tab2">我的留言</a>
                 </li>
             </ul>
         </div>
@@ -92,32 +98,33 @@
     //     getPage2(1);
     // });
 
-    $("#content").keyup(function(){
-        let len = $(this).val().length;
-        if(len > 499){
-            $(this).val($(this).val().substring(0,500));
+    $("#content").keyup(function () {
+        let len = $(this).val().length;
+        if (len > 499) {
+            $(this).val($(this).val().substring(0, 500));
             $("#word").text(0);
         }
-        if(len <= 0){
+        if (len <= 0) {
             $("#word").text("0/500");
-        }else if(len >= 500){
+        } else if (len >= 500) {
             $("#word").text('500/500');
-        }else{
-            $("#word").text(len+'/500');
+        } else {
+            $("#word").text(len + '/500');
         }
     });
-    function wordsLimit(i){
-        let len = $("#myMessage"+i).val().length;
-        if(len > 499){
-            $("#myMessage"+i).val($("#myMessage"+i).val().substring(0,500));
+
+    function wordsLimit(i) {
+        let len = $("#myMessage" + i).val().length;
+        if (len > 499) {
+            $("#myMessage" + i).val($("#myMessage" + i).val().substring(0, 500));
             $("#word2").text(0);
         }
-        if(len <= 0){
-            $("#word"+i).text("0/500");
-        }else if(len >= 500){
-            $("#word"+i).text('500/500');
-        }else{
-            $("#word"+i).text(len+'/500');
+        if (len <= 0) {
+            $("#word" + i).text("0/500");
+        } else if (len >= 500) {
+            $("#word" + i).text('500/500');
+        } else {
+            $("#word" + i).text(len + '/500');
         }
     }
 
@@ -135,31 +142,32 @@
         }
     });
 
-    function getPage1(page){
+    function getPage1(page) {
         $.ajax({//根据page去后台加载数据
-            url : "/message/getMessageList",
-            type : "get",
-            dataType : "json",
-            data : {"page" : page},
-            success : function(data) {
+            url: "/message/getMessageList",
+            type: "get",
+            dataType: "json",
+            data: {"page": page},
+            success: function (data) {
                 appendHtml1(data);//处理数据
                 console.log(data);
             }
         });
     }
+
     function appendHtml1(list) {//此函数用于处理后台返回的数据，根据自己需求来实现页面拼接
         let tableShow = '';
         for (let i = 0; i < list.length; i++) {
             tableShow += '<li class="list-group-item px-3 border-0">\n' +
                 '                            <div class="media border-bottom border-gray">\n';
-            if(list[i].picture == '')
+            if (list[i].picture == '')
                 tableShow += '<img class="mr-2" src="default.jpg" alt="" height="32px" width="32px">\n';
             else
-                tableShow += '<img class="mr-2" src="'+list[i].picture+'" alt="" height="32px" width="32px">\n';
+                tableShow += '<img class="mr-2" src="' + list[i].picture + '" alt="" height="32px" width="32px">\n';
             tableShow += '<div class="media-body pb-3 mb-0">\n' +
-                '                                    <strong class="d-block">@'+list[i].userName+'</strong>\n' +
-                '                                    <p>'+list[i].content+'</p>\n' +
-                '                                    <small class="float-right">'+list[i].time+'</small>\n' +
+                '                                    <strong class="d-block">@' + list[i].userName + '</strong>\n' +
+                '                                    <p>' + list[i].content + '</p>\n' +
+                '                                    <small class="float-right">' + list[i].time + '</small>\n' +
                 '                                </div>\n' +
                 '                            </div>\n' +
                 '                        </li>\n';
@@ -175,18 +183,19 @@
         }
     });
 
-    function getPage2(page){
+    function getPage2(page) {
         $.ajax({//根据page去后台加载数据
-            url : "message/findUserList",
-            type : "get",
-            dataType : "json",
-            data : {"page" : page},
-            success : function(data) {
+            url: "message/findUserList",
+            type: "get",
+            dataType: "json",
+            data: {"page": page},
+            success: function (data) {
                 appendHtml2(data);//处理数据
                 console.log(data);
             }
         });
     }
+
     function appendHtml2(list) {//此函数用于处理后台返回的数据，根据自己需求来实现页面拼接
         let tableShow = '';
         for (let i = 0; i < list.length; i++) {
@@ -194,12 +203,11 @@
             console.log(list[i].state);
             tableShow += '<li class="list-group-item px-3 border-0">\n' +
                 '                        <div class="d-flex mb-1">\n';
-            if(list[i].state == 3){
-                tableShow +='<div class="mr-auto">\n' +
+            if (list[i].state == 3) {
+                tableShow += '<div class="mr-auto">\n' +
                     '                                <small class="text-danger"><span class="glyphicon glyphicon-info-sign"></span>未通过</small>\n' +
                     '                            </div>\n';
-            }
-            else if(list[i].state == 1){
+            } else if (list[i].state == 1) {
                 tableShow += '<div class="mr-auto">\n' +
                     '                                <small class="text-warning"><span class="glyphicon glyphicon-info-sign"></span>审核中</small>\n' +
                     '                            </div>\n';
@@ -209,38 +217,38 @@
                 '                                    <span class="glyphicon glyphicon-menu-down"></span>\n' +
                 '                                </a>\n' +
                 '                                <div class="dropdown-menu">\n' +
-                '                                    <a class="dropdown-item" data-toggle="collapse" href="#modifyMessage'+i+'">修改</a>\n' +
-                '                                    <a class="dropdown-item" href="#"  onclick="del('+list[i].messageID+',this)">删除</a>\n' +
+                '                                    <a class="dropdown-item" data-toggle="collapse" href="#modifyMessage' + i + '">修改</a>\n' +
+                '                                    <a class="dropdown-item" href="#"  onclick="del(' + list[i].messageID + ',this)">删除</a>\n' +
                 '                                </div>\n' +
                 '                            </div>\n' +
                 '                        </div>\n' +
                 '                            <div class="media border-bottom border-gray">\n';
-            if(list[i].picture == '')
+            if (list[i].picture == '')
                 tableShow += '<img class="mr-2" src="default.jpg" alt="" height="32px" width="32px">\n';
             else
-                tableShow += '<img class="mr-2" src="'+list[i].picture+'" alt="" height="32px" width="32px">\n';
+                tableShow += '<img class="mr-2" src="' + list[i].picture + '" alt="" height="32px" width="32px">\n';
             tableShow += '<div class="media-body pb-3 mb-0">\n' +
-                '                                    <strong class="d-block">@'+list[i].userName+'</strong>\n' +
-                '                                    <p>'+list[i].content+'</p>\n' +
-                '                                    <small class="float-right">'+list[i].time+'</small>\n' +
+                '                                    <strong class="d-block">@' + list[i].userName + '</strong>\n' +
+                '                                    <p>' + list[i].content + '</p>\n' +
+                '                                    <small class="float-right">' + list[i].time + '</small>\n' +
                 '                                </div>\n' +
                 '                            </div>\n' +
-                '                            <div class="collapse" id="modifyMessage'+i+'">\n' +
+                '                            <div class="collapse" id="modifyMessage' + i + '">\n' +
                 '                                <form role="form" >\n' +
                 '                                    <div class="form-group">\n' +
-                '                                        <label for="myMessage'+i+'" class="font-weight-bold sr-only"></label>\n' +
-                '                                        <input type="text" name="messageID" class="form-control" id="messageID'+i+'" required hidden th:value="'+list[i].messageID+'">' +
+                '                                        <label for="myMessage' + i + '" class="font-weight-bold sr-only"></label>\n' +
+                '                                        <input type="text" name="messageID" class="form-control" id="messageID' + i + '" required hidden th:value="' + list[i].messageID + '">' +
                 '                                    </div>\n' +
                 '                                    <div class="form-group">\n' +
-                '                                        <label for="myMessage'+i+'" class="font-weight-bold sr-only">发布留言</label>\n' +
-                '                                        <textarea class="form-control" name="content" id="myMessage'+i+'" rows="3" required onkeyup="wordsLimit('+i+')">'+list[i].content+'</textarea>\n' +
-                '                                        <p class="text-muted my-0" id="word'+i+'">500</p>' +
+                '                                        <label for="myMessage' + i + '" class="font-weight-bold sr-only">发布留言</label>\n' +
+                '                                        <textarea class="form-control" name="content" id="myMessage' + i + '" rows="3" required onkeyup="wordsLimit(' + i + ')">' + list[i].content + '</textarea>\n' +
+                '                                        <p class="text-muted my-0" id="word' + i + '">500</p>' +
                 '                                    </div>\n' +
                 '                                    <div class="col-3 ml-auto d-flex justify-content-end">\n' +
-                '                                        <a class="btn btn-primary mr-2 text-light" data-toggle="collapse"  type="submit" onclick="modify('+list[i].messageID+','+i+',this)">\n' +
+                '                                        <a class="btn btn-primary mr-2 text-light" data-toggle="collapse"  type="submit" onclick="modify(' + list[i].messageID + ',' + i + ',this)">\n' +
                 '                                            完成\n' +
                 '                                        </a>\n' +
-                '                                        <a class="btn btn-secondary  " data-toggle="collapse" href="#modifyMessage'+i+'">\n' +
+                '                                        <a class="btn btn-secondary  " data-toggle="collapse" href="#modifyMessage' + i + '">\n' +
                 '                                            取消\n' +
                 '                                        </a>\n' +
                 '                                    </div>\n' +
@@ -253,7 +261,8 @@
         }
         $('#content2').html(tableShow);
     }
-    function del(messageID,btn) {
+
+    function del(messageID, btn) {
         if (!confirm("确定删除该留言？")) {
             return;
         }
@@ -264,7 +273,7 @@
             url: "/delMessage.do",
             dataType: "Json",
             data: {
-                messageID:messageID
+                messageID: messageID
             },
             async: false,
             success: function (result) {
@@ -275,8 +284,9 @@
             }
         });
     }
-    function modify(messageID,i,btn) {
-        if($("#myMessage"+i).val().length <=0){
+
+    function modify(messageID, i, btn) {
+        if ($("#myMessage" + i).val().length <= 0) {
             alert("留言不能为空！");
             return;
         }
@@ -284,16 +294,16 @@
             return;
         }
 
-        var s="#myMessage"+i;
-        var content=$(s).val();
+        var s = "#myMessage" + i;
+        var content = $(s).val();
         $.ajax({
             cache: true,
             type: "POST",
             url: "/modifyMessage.do",
             dataType: "Json",
             data: {
-                messageID:messageID,
-                content:content
+                messageID: messageID,
+                content: content
             },
             success: function (result) {
                 if (result) {

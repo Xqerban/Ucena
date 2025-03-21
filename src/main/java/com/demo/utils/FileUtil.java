@@ -1,15 +1,9 @@
 package com.demo.utils;
 
 import org.springframework.util.ClassUtils;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.security.MessageDigest;
 import java.util.UUID;
 
 public class FileUtil {
@@ -30,7 +24,7 @@ public class FileUtil {
         return "file/venue/" + savePicture(fileDirPath, picture);
     }
 
-    public static String saveUserFile(MultipartFile picture) throws Exception{
+    public static String saveUserFile(MultipartFile picture) throws Exception {
         if (picture.isEmpty()) {
             return "";
         }
@@ -38,7 +32,7 @@ public class FileUtil {
         return "file/user/" + savePicture(fileDirPath, picture);
     }
 
-    public static String savePicture(String filePath, MultipartFile picture) throws Exception{
+    public static String savePicture(String filePath, MultipartFile picture) throws Exception {
         File fileDir = new File(filePath);
         System.out.println(fileDir.mkdirs());
 

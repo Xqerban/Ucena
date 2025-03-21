@@ -19,9 +19,9 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Page<Message> findByUser(String userID,Pageable pageable) {
+    public Page<Message> findByUser(String userID, Pageable pageable) {
 
-        Page<Message> page=messageDao.findAllByUserID(userID,pageable);
+        Page<Message> page = messageDao.findAllByUserID(userID, pageable);
         return page;
     }
 
@@ -42,30 +42,30 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public void confirmMessage(int messageID) {
-        Message message=messageDao.findByMessageID(messageID);
-        if(message==null) {
+        Message message = messageDao.findByMessageID(messageID);
+        if (message == null) {
             throw new RuntimeException("留言不存在");
         }
-        messageDao.updateState(STATE_PASS,message.getMessageID());
+        messageDao.updateState(STATE_PASS, message.getMessageID());
     }
 
     @Override
     public void rejectMessage(int messageID) {
-        Message message=messageDao.findByMessageID(messageID);
-        if(message==null) {
+        Message message = messageDao.findByMessageID(messageID);
+        if (message == null) {
             throw new RuntimeException("留言不存在");
         }
-        messageDao.updateState(STATE_REJECT,message.getMessageID());
+        messageDao.updateState(STATE_REJECT, message.getMessageID());
     }
 
     @Override
     public Page<Message> findWaitState(Pageable pageable) {
-        return messageDao.findAllByState(STATE_NO_AUDIT,pageable);
+        return messageDao.findAllByState(STATE_NO_AUDIT, pageable);
     }
 
     @Override
     public Page<Message> findPassState(Pageable pageable) {
-        return messageDao.findAllByState(STATE_PASS,pageable);
+        return messageDao.findAllByState(STATE_PASS, pageable);
     }
 
 }

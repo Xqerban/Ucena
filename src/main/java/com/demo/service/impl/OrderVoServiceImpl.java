@@ -23,18 +23,18 @@ public class OrderVoServiceImpl implements OrderVoService {
 
     @Override
     public OrderVo returnOrderVoByOrderID(int orderID) {
-        Order order=orderDao.findByOrderID(orderID);
-        Venue venue=venueDao.findByVenueID(order.getVenueID());
-        OrderVo orderVo=new OrderVo(order.getOrderID(),order.getUserID(),order.getVenueID(),venue.getVenueName(),
-                                    order.getState(),order.getOrderTime(),order.getStartTime(),order.getHours(),order.getTotal());
+        Order order = orderDao.findByOrderID(orderID);
+        Venue venue = venueDao.findByVenueID(order.getVenueID());
+        OrderVo orderVo = new OrderVo(order.getOrderID(), order.getUserID(), order.getVenueID(), venue.getVenueName(),
+                order.getState(), order.getOrderTime(), order.getStartTime(), order.getHours(), order.getTotal());
 
         return orderVo;
     }
 
     @Override
     public List<OrderVo> returnVo(List<Order> list) {
-        List<OrderVo> list1=new ArrayList<>();
-        for(int i=0;i<list.size();i++) {
+        List<OrderVo> list1 = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
             list1.add(returnOrderVoByOrderID(list.get(i).getOrderID()));
         }
         return list1;

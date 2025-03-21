@@ -21,17 +21,17 @@ public class MessageVoServiceImpl implements MessageVoService {
 
     @Override
     public MessageVo returnMessageVoByMessageID(int messageID) {
-        Message message=messageDao.findByMessageID(messageID);
-        User user=userDao.findByUserID(message.getUserID());
-        MessageVo messageVo=new MessageVo(message.getMessageID(),user.getUserID(),message.getContent(),message.getTime(),user.getUserName(),user.getPicture(),message.getState());
+        Message message = messageDao.findByMessageID(messageID);
+        User user = userDao.findByUserID(message.getUserID());
+        MessageVo messageVo = new MessageVo(message.getMessageID(), user.getUserID(), message.getContent(), message.getTime(), user.getUserName(), user.getPicture(), message.getState());
 
         return messageVo;
     }
 
     @Override
     public List<MessageVo> returnVo(List<Message> messages) {
-        List<MessageVo> list=new ArrayList<>();
-        for(int i=0;i<messages.size();i++){
+        List<MessageVo> list = new ArrayList<>();
+        for (int i = 0; i < messages.size(); i++) {
             list.add(returnMessageVoByMessageID(messages.get(i).getMessageID()));
         }
         return list;

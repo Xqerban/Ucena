@@ -25,28 +25,28 @@ public class AdminVenueController {
 
 
     @RequestMapping("/venue_manage")
-    public String venue_manage(Model model){
-        Pageable pageable= PageRequest.of(0,10, Sort.by("venueID").ascending());
-        model.addAttribute("total",venueService.findAll(pageable).getTotalPages());
+    public String venue_manage(Model model) {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("venueID").ascending());
+        model.addAttribute("total", venueService.findAll(pageable).getTotalPages());
         return "admin/venue_manage";
     }
 
     @RequestMapping("/venue_edit")
-    public String editVenue(Model model,int venueID){
-        Venue venue=venueService.findByVenueID(venueID);
-        model.addAttribute("venue",venue);
+    public String editVenue(Model model, int venueID) {
+        Venue venue = venueService.findByVenueID(venueID);
+        model.addAttribute("venue", venue);
         return "/admin/venue_edit";
     }
 
     @RequestMapping("/venue_add")
-    public String venue_add(){
+    public String venue_add() {
         return "/admin/venue_add";
     }
 
     @GetMapping("/venueList.do")
     @ResponseBody
-    public List<Venue> getVenueList(@RequestParam(value = "page",defaultValue = "1")int page){
-        Pageable pageable= PageRequest.of(page-1,10, Sort.by("venueID").ascending());
+    public List<Venue> getVenueList(@RequestParam(value = "page", defaultValue = "1") int page) {
+        Pageable pageable = PageRequest.of(page - 1, 10, Sort.by("venueID").ascending());
         return venueService.findAll(pageable).getContent();
 
     }
@@ -54,9 +54,9 @@ public class AdminVenueController {
     @PostMapping("/addVenue.do")
     @ResponseBody
     public void addVenue(String venueName, String address, String description,
-                         int price, MultipartFile picture, String open_time,String close_time,HttpServletRequest request,
+                         int price, MultipartFile picture, String open_time, String close_time, HttpServletRequest request,
                          HttpServletResponse response) throws Exception {
-        Venue venue=new Venue();
+        Venue venue = new Venue();
         venue.setVenueName(venueName);
         venue.setAddress(address);
         venue.setDescription(description);
@@ -64,13 +64,13 @@ public class AdminVenueController {
         venue.setOpen_time(open_time);
         venue.setClose_time(close_time);
 
-        if(!Objects.equals(picture.getOriginalFilename(), "")){
+        if (!Objects.equals(picture.getOriginalFilename(), "")) {
             venue.setPicture(FileUtil.saveVenueFile(picture));
-        }else{
+        } else {
             venue.setPicture("");
         }
 
-        int id=venueService.create(venue);
+        int id = venueService.create(venue);
         if (id <= 0) {
             request.setAttribute("message", "添加失败！");
             response.sendRedirect("venue_add");
@@ -81,15 +81,15 @@ public class AdminVenueController {
 
     @PostMapping("/modifyVenue.do")
     @ResponseBody
-    public void modifyVenue(int venueID,String venueName, String address, String description,
-                            int price, MultipartFile picture, String open_time,String close_time,HttpServletRequest request,
+    public void modifyVenue(int venueID, String venueName, String address, String description,
+                            int price, MultipartFile picture, String open_time, String close_time, HttpServletRequest request,
                             HttpServletResponse response) throws Exception {
-        Venue venue=venueService.findByVenueID(venueID);
+        Venue venue = venueService.findByVenueID(venueID);
         venue.setVenueName(venueName);
         venue.setAddress(address);
         venue.setDescription(description);
         venue.setPrice(price);
-        if(!Objects.equals(picture.getOriginalFilename(), "")){
+        if (!Objects.equals(picture.getOriginalFilename(), "")) {
             venue.setPicture(FileUtil.saveVenueFile(picture));
         }
         venue.setOpen_time(open_time);
@@ -107,8 +107,8 @@ public class AdminVenueController {
 
     @PostMapping("/checkVenueName.do")
     @ResponseBody
-    public boolean checkVenueName(String venueName){
-        int count=venueService.countVenueName(venueName);
+    public boolean checkVenueName(String venueName) {
+        int count = venueService.countVenueName(venueName);
         return count < 1;
     }
 

@@ -26,38 +26,38 @@ public class AdminUserController {
 
 
     @GetMapping("/user_manage")
-    public String user_manage(Model model){
-        Pageable user_pageable= PageRequest.of(0,10, Sort.by("id").ascending());
-        Page<User> users=userService.findByUserID(user_pageable);
-        model.addAttribute("total",users.getTotalPages());
+    public String user_manage(Model model) {
+        Pageable user_pageable = PageRequest.of(0, 10, Sort.by("id").ascending());
+        Page<User> users = userService.findByUserID(user_pageable);
+        model.addAttribute("total", users.getTotalPages());
         return "admin/user_manage";
     }
 
     @GetMapping("/user_add")
-    public String user_add(){
+    public String user_add() {
         return "admin/user_add";
     }
 
     @GetMapping("/userList.do")
     @ResponseBody
-    public List<User> userList(@RequestParam(value = "page",defaultValue = "1")int page){
-        Pageable user_pageable= PageRequest.of(page-1,10, Sort.by("id").ascending());
-        Page<User> users=userService.findByUserID(user_pageable);
+    public List<User> userList(@RequestParam(value = "page", defaultValue = "1") int page) {
+        Pageable user_pageable = PageRequest.of(page - 1, 10, Sort.by("id").ascending());
+        Page<User> users = userService.findByUserID(user_pageable);
         return users.getContent();
     }
 
 
     @GetMapping("/user_edit")
-    public String user_edit(Model model,int id){
-        User user=userService.findById(id);
-        model.addAttribute("user",user);
+    public String user_edit(Model model, int id) {
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
         return "admin/user_edit";
     }
 
     @PostMapping("/modifyUser.do")
-    public void modifyUser(String userID,String oldUserID,String userName, String password, String email, String phone,
-                        HttpServletRequest request, HttpServletResponse response) throws IOException{
-        User user=userService.findByUserID(oldUserID);
+    public void modifyUser(String userID, String oldUserID, String userName, String password, String email, String phone,
+                           HttpServletRequest request, HttpServletResponse response) throws IOException {
+        User user = userService.findByUserID(oldUserID);
         user.setUserID(userID);
         user.setUserName(userName);
         user.setPassword(password);
@@ -68,9 +68,9 @@ public class AdminUserController {
     }
 
     @PostMapping("/addUser.do")
-    public void addUser(String userID,String userName, String password, String email, String phone,
-                        HttpServletRequest request, HttpServletResponse response) throws IOException{
-        User user=new User();
+    public void addUser(String userID, String userName, String password, String email, String phone,
+                        HttpServletRequest request, HttpServletResponse response) throws IOException {
+        User user = new User();
         user.setUserID(userID);
         user.setUserName(userName);
         user.setPassword(password);
@@ -83,13 +83,14 @@ public class AdminUserController {
 
     @PostMapping("/checkUserID.do")
     @ResponseBody
-    public boolean checkUserID(String userID){
-        int count=userService.countUserID(userID);
+    public boolean checkUserID(String userID) {
+        int count = userService.countUserID(userID);
         return count < 1;
     }
+
     @PostMapping("/delUser.do")
     @ResponseBody
-    public boolean delUser(int id){
+    public boolean delUser(int id) {
         userService.delByID(id);
         return true;
     }

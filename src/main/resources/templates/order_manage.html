@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>订单管理-demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
     <script th:src="@{/js/popper.min.js}"></script>
@@ -12,20 +12,24 @@
     <script th:src="@{/js/jquery.twbsPagination.js}"></script>
 
     <style type="text/css">
-        body{
+        body {
             background-color: #f5f5f5;
             padding-top: 80px;
         }
+
         html {
             overflow-y: scroll;
         }
+
         :root {
             overflow-y: auto;
             overflow-x: hidden;
         }
+
         :root body {
             position: absolute;
         }
+
         body {
             width: 100vw;
             overflow: hidden;
@@ -66,41 +70,41 @@
         }
     });
 
-    function getPage(page){
+    function getPage(page) {
         $.ajax({//根据page去后台加载数据
-            url : "/getOrderList.do",
-            type : "get",
-            dataType : "json",
-            data : {"page" : page},
-            success : function(data) {
+            url: "/getOrderList.do",
+            type: "get",
+            dataType: "json",
+            data: {"page": page},
+            success: function (data) {
                 appendHtml(data);//处理数据
                 console.log(data);
             }
         });
     }
+
     function appendHtml(list) {//此函数用于处理后台返回的数据，根据自己需求来实现页面拼接
         let tableShow = '';
         for (let i = 0; i < list.length; i++) {
             tableShow += '<li class="list-group-item px-3 border-0">\n' +
                 '                        <div class="d-flex mb-1">\n';
-            if(list[i].state == 3){
-                tableShow +='<div class="mr-auto">\n' +
+            if (list[i].state == 3) {
+                tableShow += '<div class="mr-auto">\n' +
                     '                                <small class="text-danger"><span class="glyphicon glyphicon-info-sign"></span>未通过</small>\n' +
                     '                            </div>\n';
-            }
-            else if(list[i].state == 1){
+            } else if (list[i].state == 1) {
                 tableShow += '<div class="mr-auto">\n' +
                     '                                <small class="text-warning"><span class="glyphicon glyphicon-info-sign"></span>审核中</small>\n' +
                     '                            </div>\n';
             }
             tableShow +=
-            '                    <div class="dropdown ml-auto">\n' +
+                '                    <div class="dropdown ml-auto">\n' +
                 '                        <a class="text-dark" href="#" data-toggle="dropdown">\n' +
                 '                            <span class="glyphicon glyphicon-menu-down"></span>\n' +
                 '                        </a>\n' +
                 '                        <div class="dropdown-menu">\n' +
-                '                            <a class="dropdown-item" href="modifyOrder.do?orderID='+list[i].orderID+'">修改</a>\n' +
-                '                            <a class="dropdown-item" href="#" onclick="del('+list[i].orderID+',this)">取消</a>\n' +
+                '                            <a class="dropdown-item" href="modifyOrder.do?orderID=' + list[i].orderID + '">修改</a>\n' +
+                '                            <a class="dropdown-item" href="#" onclick="del(' + list[i].orderID + ',this)">取消</a>\n' +
                 '                        </div>\n' +
                 '                    </div>\n' +
                 '                </div>\n' +
@@ -114,28 +118,29 @@
                 '                        <div class="media-body">\n' +
                 '                            <h6>\n' +
                 '                                <strong>预约场馆：</strong>\n' +
-                '                                <a href="/venue?venueID='+list[i].venueID+'" target="_blank" >'+list[i].venueName+'</a>\n' +
+                '                                <a href="/venue?venueID=' + list[i].venueID + '" target="_blank" >' + list[i].venueName + '</a>\n' +
                 '                            </h6>\n' +
                 '                            <h6 class="d-flex">\n' +
                 '                                <p class="font-weight-bold mb-0">预约时间：</p>\n' +
-                '                                <p class="mb-0">'+list[i].startTime+'</p>\n' +
+                '                                <p class="mb-0">' + list[i].startTime + '</p>\n' +
                 '                            </h6>\n' +
                 '                            <h6 class="d-flex">\n' +
                 '                                <p class="font-weight-bold mb-0">预约时长：</p>\n' +
-                '                                <p class="mb-0">'+list[i].hours+'</p>\n' +
+                '                                <p class="mb-0">' + list[i].hours + '</p>\n' +
                 '                            </h6>\n' +
                 '                            <h6 class="d-flex">\n' +
                 '                                <p class="font-weight-bold mb-0">支付租金：</p>\n' +
-                '                                <p class="mb-0">￥'+list[i].total+'</p>\n' +
+                '                                <p class="mb-0">￥' + list[i].total + '</p>\n' +
                 '                            </h6>\n' +
-                '                            <small class="float-right">'+list[i].orderTime+'</small>\n' +
+                '                            <small class="float-right">' + list[i].orderTime + '</small>\n' +
                 '                        </div>\n' +
                 '                    </div>\n' +
                 '                </li>\n';
         }
         $('#content').html(tableShow);
     }
-    function del(orderID,btn) {
+
+    function del(orderID, btn) {
         if (!confirm("确定删除该订单？")) {
             return;
         }
@@ -146,7 +151,7 @@
             url: "/delOrder.do",
             dataType: "Json",
             data: {
-                orderID:orderID
+                orderID: orderID
             },
             async: false,
             success: function (result) {

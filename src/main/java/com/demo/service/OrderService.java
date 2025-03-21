@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface OrderService {
-    int STATE_NO_AUDIT=1;
-    int STATE_WAIT=2;
-    int STATE_FINISH=3;
-    int STATE_REJECT=4;
+    int STATE_NO_AUDIT = 1;
+    int STATE_WAIT = 2;
+    int STATE_FINISH = 3;
+    int STATE_REJECT = 4;
 
     /**
      * 根据orderID查看订单
@@ -29,11 +29,13 @@ public interface OrderService {
 
     List<Order> findDateOrder(int venueID, LocalDateTime startTime, LocalDateTime startTime2);
 
-    Page<Order> findUserOrder(String userID,Pageable pageable);
+    Page<Order> findUserOrder(String userID, Pageable pageable);
 
-    void updateOrder(int orderID,String venueName, LocalDateTime startTime, int hours, String userID);
+    void updateOrder(int orderID, String venueName, LocalDateTime startTime, int hours, String userID);
+
     /**
      * 新建订单
+     *
      * @param venueName
      * @param startTime
      * @param hours
@@ -42,24 +44,28 @@ public interface OrderService {
 
     /**
      * 删除订单
+     *
      * @param orderID
      */
     void delOrder(int orderID);
 
     /**
      * 通过订单
+     *
      * @param orderID
      */
     void confirmOrder(int orderID);
 
     /**
      * 完成订单
+     *
      * @param orderID
      */
     void finishOrder(int orderID);
 
     /**
-     *拒绝预定
+     * 拒绝预定
+     *
      * @param orderID
      */
     void rejectOrder(int orderID);

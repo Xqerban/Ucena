@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>登录-demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
     <script th:src="@{js/jquery.form.js}"></script>
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <style type="text/css">
-        body{
+        body {
             background-color: #f5f5f5;
         }
     </style>
@@ -24,17 +24,20 @@
             <h1>用 户 登 录</h1>
         </div>
         <div class="form-group mb-4">
-            <label for="userID" class="sr-only">User Name</label>
-            <input type="text" name="userID" class="form-control form-control-lg" id="userID" placeholder="用户名" required autofocus>
+            <label class="sr-only" for="userID">User Name</label>
+            <input autofocus class="form-control form-control-lg" id="userID" name="userID" placeholder="用户名"
+                   required type="text">
         </div>
 
         <div class="form-group mb-4">
-            <label for="password" class="sr-only">Password</label>
-            <input type="password" name="password" class="form-control form-control-lg" id="password" placeholder="密码" required>
+            <label class="sr-only" for="password">Password</label>
+            <input class="form-control form-control-lg" id="password" name="password" placeholder="密码" required
+                   type="password">
         </div>
-        <div class="alert alert-danger" hidden><span class="glyphicon glyphicon-info-sign"></span> 用户名或密码错误，请重新输入！</div>
+        <div class="alert alert-danger" hidden><span class="glyphicon glyphicon-info-sign"></span> 用户名或密码错误，请重新输入！
+        </div>
         <div class="pt-4">
-            <button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">登 录</button>
+            <button class="btn btn-lg btn-primary btn-block" id="submit" type="submit">登 录</button>
         </div>
 
     </form>
@@ -43,16 +46,16 @@
 <div th:include="layout/footer :: Footer"></div>
 <script type="text/javascript">
 
-    $("#userID").keyup(function(){
-        let len = $(this).val().length;
-        if(len > 31){
-            $(this).val($(this).val().substring(0,32));
+    $("#userID").keyup(function () {
+        let len = $(this).val().length;
+        if (len > 31) {
+            $(this).val($(this).val().substring(0, 32));
         }
     });
-    $("#password").keyup(function(){
-        let len = $(this).val().length;
-        if(len > 15){
-            $(this).val($(this).val().substring(0,16));
+    $("#password").keyup(function () {
+        let len = $(this).val().length;
+        if (len > 15) {
+            $(this).val($(this).val().substring(0, 16));
         }
     });
 
@@ -63,16 +66,15 @@
     });
     $("form").submit(function () {
         $("form").ajaxSubmit({
-            url:"loginCheck.do",
+            url: "loginCheck.do",
             dataType: "text",
             type: "post",
-            success: function(data){
+            success: function (data) {
                 console.log(data);
-                if(data == 'false') {
+                if (data == 'false') {
                     $(".alert").removeAttr('hidden');
                     $("#submit").attr("disabled", "disabled");
-                }
-                else{
+                } else {
                     alert("登录成功！");
                     window.location.href = data;
                 }

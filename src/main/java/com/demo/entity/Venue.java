@@ -1,14 +1,10 @@
 package com.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
-import java.time.LocalTime;
-import java.util.Date;
 
 @Data
 @Entity
@@ -19,7 +15,7 @@ public class Venue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int venueID;
 
-    @Column(name="venue_name")
+    @Column(name = "venue_name")
     private String venueName;
 
     private String description;

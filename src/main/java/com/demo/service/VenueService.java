@@ -16,14 +16,17 @@ public interface VenueService {
     Venue findByVenueID(int id);
 
     Venue findByVenueName(String venueName);
+
     /**
      * 分页查看所有场馆
+     *
      * @param pageable
      * @return
      */
     Page<Venue> findAll(Pageable pageable);
 
     List<Venue> findAll();
+
     /**
      * 创建新的场馆
      *

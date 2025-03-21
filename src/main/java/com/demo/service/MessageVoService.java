@@ -5,7 +5,8 @@ import com.demo.entity.vo.MessageVo;
 
 import java.util.List;
 
-public interface MessageVoService  {
+public interface MessageVoService {
     MessageVo returnMessageVoByMessageID(int messageID);
+
     List<MessageVo> returnVo(List<Message> messages);
 }

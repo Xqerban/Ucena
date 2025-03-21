@@ -8,9 +8,9 @@
 <div th:fragment="header(user,flag,page)">
     <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark shadow" role="navigation">
         <div class="navbar-header">
-            <a class="navbar-brand" th:href="@{index}" style="font-weight: bold">demo</a>
+            <a class="navbar-brand" style="font-weight: bold" th:href="@{index}">demo</a>
         </div>
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar">
+        <button class="navbar-toggler" data-target="#navbar" data-toggle="collapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbar">
@@ -21,18 +21,21 @@
                 <li class="nav-item" th:classappend="${page}=='venue_list'?'active':''">
                     <a class="nav-link" th:href="@{venue_list}">场馆信息</a>
                 </li>
-                <li class="nav-item dropdown" th:classappend="${page}=='order_place' or ${page}=='order_manage'?'active':''">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown" data-toggle="dropdown">预约管理</a>
+                <li class="nav-item dropdown"
+                    th:classappend="${page}=='order_place' or ${page}=='order_manage'?'active':''">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdown">预约管理</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item loginfirst" href="#" th:onclick="'javascript:order_place('+${flag}+')'">场馆预约</a>
-                        <a class="dropdown-item loginfirst" href="#" th:onclick="'javascript:order_manage('+${flag}+')'">订单管理</a>
+                        <a class="dropdown-item loginfirst" href="#"
+                           th:onclick="'javascript:order_manage('+${flag}+')'">订单管理</a>
                     </div>
                 </li>
                 <li class="nav-item" th:classappend="${page}=='news_list'?'active':''">
                     <a class="nav-link" th:href="@{news_list}">新闻</a>
                 </li>
                 <li class="nav-item" th:classappend="${page}=='message_list'?'active':''">
-                    <a class="nav-link loginfirst" href="#" th:onclick="'javascript:message_list('+${flag}+')'">留言板</a>
+                    <a class="nav-link loginfirst" href="#"
+                       th:onclick="'javascript:message_list('+${flag}+')'">留言板</a>
                 </li>
             </ul>
             <div th:if="${flag}">
@@ -40,7 +43,8 @@
                     <li class="nav-item" th:classappend="${page}=='user_info'?'active':''">
                         <a class="nav-link pb-0 d-flex" th:href="@{user_info}">
                             <div class="mr-2" style="width:24px; height:24px; border-radius:100%; overflow:hidden;">
-                                <img class="mb-2" th:src="${user.picture} == ''?'default.jpg':${user.picture}" alt="" height="24px" width="24px">
+                                <img alt="" class="mb-2" height="24px"
+                                     th:src="${user.picture} == ''?'default.jpg':${user.picture}" width="24px">
                             </div>
                             <p class="mb-0" th:text="${user.userName}"></p>
                         </a>
@@ -65,30 +69,30 @@
     </nav>
     <script type="text/javascript">
         $('.dropdown-toggle').dropdown();
-        function message_list(flag){
-            if(!flag){
+
+        function message_list(flag) {
+            if (!flag) {
                 alert("请登录！");
                 window.location.href = '/login';
-            }
-            else{
+            } else {
                 window.location.href = '/message_list';
             }
         }
-        function order_manage(flag){
-            if(!flag){
+
+        function order_manage(flag) {
+            if (!flag) {
                 alert("请登录！");
                 window.location.href = '/login';
-            }
-            else{
+            } else {
                 window.location.href = '/order_manage';
             }
         }
-        function order_place(flag){
-            if(!flag){
+
+        function order_place(flag) {
+            if (!flag) {
                 alert("请登录！");
                 window.location.href = '/login';
-            }
-            else{
+            } else {
                 window.open('/order_place');
                 // window.location.href = '/order_place';
             }

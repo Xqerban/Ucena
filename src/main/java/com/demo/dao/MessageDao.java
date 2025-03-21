@@ -9,16 +9,16 @@ import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
 
-public interface MessageDao extends JpaRepository<Message,Integer> {
+public interface MessageDao extends JpaRepository<Message, Integer> {
     Message findByMessageID(int messageID);
 
-    Page<Message> findAllByUserID(String userID,Pageable pageable);
-    
-    Page<Message> findAllByState(int state,Pageable pageable);
+    Page<Message> findAllByUserID(String userID, Pageable pageable);
+
+    Page<Message> findAllByState(int state, Pageable pageable);
 
     @Transactional
     @Modifying
-    @Query(value="update Message o set o.state=?1 where o.messageID=?2",nativeQuery =true)
+    @Query(value = "update Message o set o.state=?1 where o.messageID=?2", nativeQuery = true)
     void updateState(int state, int messageID);
 
 }

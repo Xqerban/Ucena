@@ -31,26 +31,26 @@ public class IndexController {
     private MessageService messageService;
 
     @GetMapping("/index")
-    public String index(Model model){
-        Pageable venue_pageable= PageRequest.of(0,5, Sort.by("venueID").ascending());
-        Pageable news_pageable= PageRequest.of(0,5, Sort.by("time").descending());
-        Pageable message_pageable= PageRequest.of(0,5, Sort.by("time").descending());
+    public String index(Model model) {
+        Pageable venue_pageable = PageRequest.of(0, 5, Sort.by("venueID").ascending());
+        Pageable news_pageable = PageRequest.of(0, 5, Sort.by("time").descending());
+        Pageable message_pageable = PageRequest.of(0, 5, Sort.by("time").descending());
 
-        List<Venue> venue_list=venueService.findAll(venue_pageable).getContent();
-        List<News> news_list= newsService.findAll(news_pageable).getContent();
-        Page<Message> messages=messageService.findPassState(message_pageable);
-        List<MessageVo> message_list=messageVoService.returnVo(messages.getContent());
+        List<Venue> venue_list = venueService.findAll(venue_pageable).getContent();
+        List<News> news_list = newsService.findAll(news_pageable).getContent();
+        Page<Message> messages = messageService.findPassState(message_pageable);
+        List<MessageVo> message_list = messageVoService.returnVo(messages.getContent());
 
         model.addAttribute("user", null);
-        model.addAttribute("news_list",news_list);
-        model.addAttribute("venue_list",venue_list);
-        model.addAttribute("message_list",message_list);
+        model.addAttribute("news_list", news_list);
+        model.addAttribute("venue_list", venue_list);
+        model.addAttribute("message_list", message_list);
         return "index";
     }
 
 
     @GetMapping("/admin_index")
-    public String admin_index(Model model){
+    public String admin_index(Model model) {
         return "admin/admin_index";
     }
 
