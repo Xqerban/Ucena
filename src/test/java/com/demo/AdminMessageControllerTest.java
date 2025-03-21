@@ -9,18 +9,21 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Page;
+import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 //import static org.hamcrest.Matchers.*;
 
@@ -50,11 +53,13 @@ class AdminMessageControllerTest {
 
     @Test
     void testMessageList() throws Exception {
-        Message msg1 = new Message(); msg1.setMessageID(1); // 可补充其他属性
+        Message msg1 = new Message();
+        msg1.setMessageID(1); // 可补充其他属性
         Page<Message> page = new PageImpl<>(List.of(msg1));
         when(messageService.findWaitState(any(Pageable.class))).thenReturn(page);
 
-        MessageVo vo1 = new MessageVo(); vo1.setMessageID(1); // 可补充其他属性
+        MessageVo vo1 = new MessageVo();
+        vo1.setMessageID(1); // 可补充其他属性
         when(messageVoService.returnVo(anyList())).thenReturn(List.of(vo1));
 
         mockMvc.perform(get("/messageList.do").param("page", "1"))
