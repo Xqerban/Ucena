@@ -136,9 +136,16 @@ public class MessageControllerTest {
      * 期望输出：返回 5xx 错误
      */
     @Test
-    public void testFindUserListThrowsException() throws Exception {
-        when(messageVoService.returnVo(any())).thenThrow(new RuntimeException("Database error"));
-        mockMvc.perform(MockMvcRequestBuilders.get("/message/findUserList"))
-                .andExpect(status().is5xxServerError());
+    public void testFindUserListThrowsException() {
+        // 模拟未登录情况，抛出LoginException
+        when(messageVoService.returnVo(any())).thenThrow(new LoginException("请登录！"));
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            mockMvc.perform(MockMvcRequestBuilders.get("/message/findUserList"));
+        });
+
+        assertTrue(exception.getCause() instanceof LoginException);
+        assertEquals("请登录！", exception.getCause().getMessage());
     }
+
 }
