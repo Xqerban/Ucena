@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>demo-管理系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <style type="text/css">
+        body{
+            background-color: #f5f5f5;
+            padding-top: 55px;
+        }
+        html {
+            overflow-y: scroll;
+        }
+        :root {
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        :root body {
+            position: absolute;
+        }
+        body {
+            width: 100vw;
+            overflow: hidden;
+        }
+    </style>
+    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script src="https://cdn.bootcss.com/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div th:include="layout/left :: left(user=${session.admin},flag=${session.admin}!=null,page='venue_manage')"></div>
+        <main class="col-10 ml-auto px-4 mt-4">
+            <div class="col-12 mb-3 pb-3 border-bottom border-gray">
+                <h2>新增场馆</h2>
+            </div>
+            <div>
+                <form class="col-10 mx-auto" role="form" th:action="@{/addVenue.do}" th:method="POST" enctype="multipart/form-data">
+                    <div class="form-group mb-4 d-flex justify-content-start">
+                        <div class="col-2 align-self-center text-right">
+                            <h6 class=" ml-auto">场馆名称：</h6>
+                        </div>
+                        <div class="col-7">
+                            <label for="venueName" class="sr-only">场馆名称</label>
+                            <input type="text" name="venueName" class="form-control" id="venueName" required onchange="doVerify()"
+                                   data-toggle="tooltip" title="最多32个字符" data-placement="right" data-trigger="manual">
+                        </div>
+                    </div>
+                    <div class="col-5 mr-auto" style="margin-left: 15%">
+                        <div class="alert alert-danger m-3 mb-4" hidden  id="alertVenue">
+                            <span class="glyphicon glyphicon-info-sign"></span> 场馆已存在，请更换场馆名称！</div>
+                    </div>
+                    <div class="form-group mb-4 d-flex justify-content-start">
+                        <div class="col-2 align-self-center text-right">
+                            <h6 class=" ml-auto">位置：</h6>
+                        </div>
+                        <div class="col-7">
+                            <label for="address" class="sr-only">位置</label>
+                            <input type="text" name="address" class="form-control" id="address" required
+                                   data-toggle="tooltip" title="最多50个字符" data-placement="right" data-trigger="manual">
+                        </div>
+                    </div>
+                    <div class="form-group mb-4 d-flex justify-content-start">
+                        <div class="col-2 align-self-center text-right">
+                            <h6 class=" ml-auto">租金：</h6>
+                        </div>
+                        <div class="col-3">
+                            <label for="price" class="sr-only">租金</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">￥</div>
+                                </div>
+                                <input type="text" name="price" class="form-control" id="price" required
+                                       data-toggle="tooltip" title="最多6位数字" data-placement="right" data-trigger="manual">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-4 d-flex justify-content-start">
+                        <div class="col-2 align-self-center text-right">
+                            <h6 class=" ml-auto">开放时间：</h6>
+                        </div>
+                        <div class="col-10 d-flex justify-content-start">
+                            <div class="date col-4 pl-0">
+                                <label for="startTime" class="sr-only">开始时间</label>
+                                <input type="text" id="startTime" class="form-control" required name="open_time">
+                            </div>
+                            <h6 class="align-self-center strong h4">~</h6>
+                            <div class="date col-4 pr-0">
+                                <label for="endTime" class="sr-only">结束时间</label>
+                                <input type="text" id="endTime" class="form-control" required name="close_time">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-4 d-flex justify-content-start">
+                        <div class="col-2 align-self-start pt-1 text-right">
+                            <h6 class="ml-auto">场馆介绍：</h6>
+                        </div>
+                        <div class="col-10">
+                            <label for="description" class="sr-only">场馆介绍</label>
+                            <textarea class="form-control" name="description" id="description" rows="10" required></textarea>
+                            <p class="text-muted my-0 float-right" id="word">1000</p>
+                        </div>
+                    </div>
+                    <div class="form-group mb-4 d-flex justify-content-start">
+                        <div class="col-2 align-self-start pt-1 text-right">
+                            <h6 class="ml-auto">图片：</h6>
+                        </div>
+                        <div class="col-10">
+                            <img src="venue.jpg" alt="" style="height: 100px; width: 100px">
+                            <label for="picture" class="sr-only">Example file input</label>
+                            <input type="file" class="form-control-file mt-2" id="picture" name="picture">
+                        </div>
+                    </div>
+                    <div class="mb-4 d-flex justify-content-center">
+                        <button class="btn btn-danger col-2 mr-5" type="submit" id="submit">提交</button>
+                        <button class="btn btn-secondary col-2" type="reset" id="cancel">取消</button>
+                    </div>
+
+                </form>
+            </div>
+            <div th:include="layout/footer :: Footer"></div>
+        </main>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // function checkFile(){
+    //     var file=$('#picture').get(0).files[0];
+    //     if(!file){
+    //         alert("请选择图片！");
+    //         return false;
+    //     }
+    //     return true;
+    // }
+    $('textarea').each(function () {
+        this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+    }).on('input', function () {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+
+    $("#venueName").keyup(function(){
+        let len = $(this).val().length;
+        if(len > 31){
+            $(this).val($(this).val().substring(0,32));
+            $(this).tooltip('show');
+            setTimeout(function(){
+                $("#venueName").tooltip('hide');
+            }, 2000);
+        }
+    });
+    $("#address").keyup(function(){
+        let len = $(this).val().length;
+        if(len > 49){
+            $(this).val($(this).val().substring(0,50));
+            $(this).tooltip('show');
+            setTimeout(function(){
+                $("#address").tooltip('hide');
+            }, 2000);
+        }
+    });
+    $("#price").keyup(function(){
+        let len = $(this).val().length;
+        if(len > 5){
+            $(this).val($(this).val().substring(0,6));
+            $(this).tooltip('show');
+            setTimeout(function(){
+                $("#price").tooltip('hide');
+            }, 2000);
+        }
+    });
+    $("#description").keyup(function(){
+        let len = $(this).val().length;
+        if(len > 999){
+            $(this).val($(this).val().substring(0,1000));
+        }
+        if(len <= 0){
+            $("#word").text("0/1000");
+        }else if(len >= 1000){
+            $("#word").text('1000/1000');
+        }else
+        {
+            $("#word").text(len+'/1000');
+        }
+    });
+
+    $(function () {
+        const picker1 = $('#startTime').datetimepicker({
+            format: 'HH:mm ',
+            locale: moment.locale('zh-cn'),
+
+        });
+        const picker2 = $('#endTime').datetimepicker({
+            format: 'HH:mm',
+            locale: moment.locale('zh-cn'),
+            useCurrent: false
+        });
+        picker1.on('dp.change', function (e) {
+            picker2.data('DateTimePicker').minDate(e.date);
+        });
+        picker2.on('dp.change', function (e) {
+            picker1.data('DateTimePicker').maxDate(e.date);
+        });
+    });
+    $("#cancel").click(function(){
+        window.history.back();
+    });
+    function doVerify(){
+        var account =  $("#venueName").val();
+        console.log(account);
+        if(account==""){
+            $("#submit").attr('disabled',false);
+            $("#alertVenue").attr('hidden', 'hidden');
+            return;
+        }
+
+        $.ajax({
+            url:"checkVenueName.do",
+            dataType: "Json",
+            type: "post",
+            data:{
+                venueName: account
+            },
+            success: function(msg){
+                if(!msg) {
+                    $("#submit").attr('disabled',true);
+                    $("#alertVenue").removeAttr('hidden');
+                }
+                else{
+                    $("#submit").attr('disabled',false);
+                    $("#alertVenue").attr('hidden', 'hidden');
+                }
+
+            }
+        });
+    }
+    $("#picture").change(function (e){
+        console.log('value='+$(this).val());
+        console.log(e);
+        var fileMsg = e.currentTarget.files;
+        var fileName = fileMsg[0].name;
+        console.log(fileName);//js-dom.png
+        //大小 字节
+        var fileSize = fileMsg[0].size;
+        console.log(fileSize);//350061
+        //类型
+        var fileType = fileMsg[0].type;
+        console.log(fileType);//image/png
+        // 判断文件类型
+        var type=(fileType.substr(fileType.lastIndexOf("/"))).toLowerCase();
+        if(type!="/jpg" && type!="/gif" && type!="/jpeg" && type!="/png"){
+            alert("您上传图片的类型不符合(.jpg|.jpeg|.gif|.png)！\n请重新上传！");
+            $('#picture').val('');
+            return false;
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改订单-demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script src="https://cdn.bootcss.com/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+    <style type="text/css">
+        body{
+            background-color: #f5f5f5;
+        }
+        .timebar{
+            width:750px;
+            height:auto;
+            margin:0;
+            padding:0;
+            font-size: 0;
+            /*需设置定位*/
+            position:relative;
+        }
+        .time-item{
+            width:50px;
+            height:50px;
+            margin:0;
+            padding:0;
+            display:inline-block;
+            vertical-align: top;
+            font-size: 13px;
+            background-color: white;
+            border:1px solid #d9d9d9;
+            user-select: none;
+        }
+        #moveSelected{
+            position:absolute;
+            background-color: blue;
+            opacity:0.3;
+            top:0;
+            left:0;
+        }
+        .selected{
+            background-color: #007bff;
+        }
+        .occupied{
+            background-color: #dc3545;
+        }
+        .banned{
+            background-color: #eeeeee;
+        }
+
+        html {
+            overflow-y: scroll;
+        }
+        :root {
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        :root body {
+            position: absolute;
+        }
+        body {
+            width: 100vw;
+            overflow: hidden;
+        }
+    </style>
+
+</head>
+<body>
+<div th:include="layout/header :: header(user=${session.user},flag=${session.user}!=null,page='order_place')"></div>
+<main class="container-fluid" style="padding-top: 10%">
+    <form role="form" th:action="@{modifyOrder}" th:method="post">
+        <div class="text-center mb-5" >
+            <h1>场 馆 预 约</h1>
+        </div>
+        <div class="form-group mx-auto col-6 mb-4 row">
+            <div class="media col-3 pr-0">
+                <h5 class="align-self-center">场馆名称：</h5>
+            </div>
+            <div class="col-9 pl-0">
+                <label for="venueName" class="sr-only">场馆名称</label>
+                <h5 th:text="${venue.venueName}"></h5>
+                <input type="text" name="venueName" class="form-control form-control-lg" id="venueName"
+                       th:value="${venue.venueName}" required hidden="hidden">
+            </div>
+        </div>
+        <div class="form-group mx-auto col-6 mb-4 row">
+            <div class="media col-3 pr-0">
+                <h5 class="align-self-center">预约日期：</h5>
+            </div>
+            <div class="input-group date col-9 pl-0">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>
+                </div>
+                <label for="date" class="sr-only">预约日期</label>
+                <input type="text" id="date" name="date" class="form-control form-control-lg" data-format="yyyy-MM-dd" required>
+            </div>
+        </div>
+        <div class="form-group mx-auto mb-4">
+            <div class="mb-3 mx-auto d-flex justify-content-center">
+                <svg class="bd-placeholder-img my-auto mr-2 ml-4 border border-gray" width="20" height="16">
+                    <rect width="100%" height="100%" fill="#eeeeee"/>
+                </svg>
+                <div class="my-auto">过期/关闭</div>
+                <svg class="bd-placeholder-img my-auto mr-2 ml-4 border border-gray" width="20" height="16">
+                    <rect width="100%" height="100%" fill="#dc3545"/>
+                </svg>
+                <div class="my-auto">已被预约</div>
+                <svg class="bd-placeholder-img my-auto mr-2 ml-4 border border-gray" width="20" height="16">
+                    <rect width="100%" height="100%" fill="#0062cc"/>
+                </svg>
+                <div class="my-auto">你的选择</div>
+                <button class="btn btn-secondary btn-sm ml-4" id="reload" type="button">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                </button>
+
+            </div>
+            <div class="d-flex justify-content-center">
+                <ul class="timebar d-flex">
+                    <li class="time-item" id="6">6:00</li>
+                    <li class="time-item" id="7">7:00</li>
+                    <li class="time-item" id="8">8:00</li>
+                    <li class="time-item" id="9">9:00</li>
+                    <li class="time-item" id="10">10:00</li>
+                    <li class="time-item" id="11">11:00</li>
+                    <li class="time-item" id="12">12:00</li>
+                    <li class="time-item" id="13">13:00</li>
+                    <li class="time-item" id="14">14:00</li>
+                    <li class="time-item" id="15">15:00</li>
+                    <li class="time-item" id="16">16:00</li>
+                    <li class="time-item" id="17">17:00</li>
+                    <li class="time-item" id="18">18:00</li>
+                    <li class="time-item" id="19">19:00</li>
+                    <li class="time-item" id="20">20:00</li>
+                    <li class="time-item" id="21">21:00</li>
+                    <li class="time-item" id="22">22:00</li>
+                    <div id="moveSelected"></div>
+                </ul>
+            </div>
+        </div>
+        <input type="text" hidden="hidden" name="startTime" id="startTime" required>
+        <input type="text" hidden="hidden" name="hours" id="hours" required>
+        <input type="text" hidden="hidden" name="orderID" id="orderID" th:value="${order.orderID}">
+<!--        <button class="btn btn-lg btn-danger btn-block col-4 mx-auto mt-5" id="submit" type="submit">提交订单</button>-->
+        <div class="mb-4 pt-4 d-flex justify-content-center">
+            <button class="btn btn-danger col-2 mr-5" type="submit" id="submit">提交</button>
+            <button class="btn btn-secondary col-2" type="reset" id="cancel">取消</button>
+        </div>
+    </form>
+
+</main>
+<div th:include="layout/footer :: Footer"></div>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        let moveSelected=$('#moveSelected')[0];
+        let ifDrag=false;//是搜开启拖拽的标志
+        let oldLeft=0;//鼠标按下时的left,top
+        let oldTop=0;
+        let selectedList=[];//拖拽多选选中的块集合
+        $('#date').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn'),
+            minDate: new Date(),
+            defaultDate: new Date()
+        });
+
+        let selectedOrderList=[];//向后台请求的订单列表
+        let venueName = $("#venueName").val();
+        let date = $("#date").val();
+        let now = new Date().getHours();
+        let today = date;
+        let selectedVenue = null;
+
+        $('#date').datetimepicker().on('dp.change', function () {
+            date = $(this).val();
+            getOrderList();
+        });
+
+        $("#venueName").change(function () {
+            venueName = $(this).val();
+            getOrderList();
+        });
+
+        if(venueName != ''){
+            // console.log("ready");
+            getOrderList();
+        }
+
+
+        function getOrderList() {
+            console.log(date);
+            console.log(venueName);
+            $.ajax({
+                url : "/order/getOrderList.do",
+                type : "get",
+                dataType : "json",
+                data : {"venueName" : venueName, "date" : date},
+                success : function(data) {
+                    console.log(data);
+                    selectedOrderList = data.orders;
+                    selectedVenue = data.venue;
+                    resetTimebar();//处理数据
+                }
+            });
+        }
+
+        function resetTimebar(){
+            $(".time-item").removeClass('selected').removeClass('banned').removeClass('occupied');
+            selectedList=[];
+            if(selectedVenue != null){//设置开放时间
+                let start = parseInt(selectedVenue.open_time.slice(0,2), 10);
+                let end = parseInt(selectedVenue.close_time.slice(0,2), 10);
+                if(today == date && start <= now)
+                    setTimeItem(6, now+1, 'banned');
+                else
+                    setTimeItem(6, start, 'banned');
+                setTimeItem(end, 23, 'banned');
+            }
+            for (let i = 0; i < selectedOrderList.length; i++) {//设置已被预约时间
+                if([[${order.orderID}]] == selectedOrderList[i].orderID)
+                    continue;
+                let start = parseInt(selectedOrderList[i].startTime.slice(11,13), 10);
+                let end = start + selectedOrderList[i].hours;
+                setTimeItem(start, end, 'occupied');
+            }
+
+        }
+
+        function setTimeItem(start, end, type){
+            for(let i = start; i < end; i++){
+                let id = '#' + i;
+                $(id).addClass(type);
+            }
+        }
+
+        $("#reload").click(function(){
+            resetTimebar();
+        });
+
+        // 鼠标按下时开启拖拽多选，将遮罩定位并展现
+        $(".timebar").mousedown(function(event) {
+            if(selectedList.length>0 || $("#venueName").val()=='') return;
+            ifDrag=true;
+            moveSelected.style.left=event.pageX-$(this).offset().left +'px';
+            moveSelected.style.height=50+'px';
+            oldLeft=event.pageX;
+            oldTop=event.pageY;
+            event.preventDefault();  // 阻止默认行为
+            event.stopPropagation(); // 阻止事件冒泡
+        });
+        // 鼠标移动时计算遮罩的位置，宽 高
+        $(".timebar").mousemove(function(event) {
+            if(!ifDrag) return;//只有开启了拖拽，才进行mouseover操作
+            if(event.pageX>oldLeft){//向右拖
+                moveSelected.style.width=(event.pageX-oldLeft)+'px';
+            }
+            event.preventDefault();  // 阻止默认行为
+            event.stopPropagation(); // 阻止事件冒泡
+        });
+        //鼠标抬起时计算遮罩的right 和 bottom，找出遮罩覆盖的块，关闭拖拽选中开关，清除遮罩数据
+        $(".timebar").mouseup(function(event) {
+            if(!ifDrag) return;
+            moveSelected.style.right=Number(moveSelected.style.left.split('px')[0])+Number(moveSelected.style.width.split('px')[0])+'px';
+            findSelected();
+            ifDrag=false;
+            clearDragData();
+            event.preventDefault();  // 阻止默认行为
+            event.stopPropagation(); // 阻止事件冒泡
+        });
+        function findSelected(){
+            let blockList=$('.timebar').find('.time-item');
+            for(let i=0;i<blockList.length;i++){
+                if($(blockList[i]).hasClass('banned') || $(blockList[i]).hasClass('occupied')) {
+                    if(selectedList.length > 0)
+                        break;
+                    continue;
+                }
+                //计算每个块的定位信息
+                let left=$(blockList[i]).offset().left - $(".timebar").offset().left;
+                let right=$(blockList[i]).width()+left;
+                let top=$(blockList[i]).offset().top - $(".timebar").offset().top;
+                let bottom=$(blockList[i]).height()+top;
+                //判断每个块是否被遮罩盖住（即选中）
+                if(moveSelected.style.left.split('px')[0]<=right && moveSelected.style.right.split('px')[0]>=left){
+                    selectedList.push(blockList[i]);
+                    $(blockList[i]).addClass('selected');
+                }
+            }
+            console.log(selectedList);
+            if(selectedList.length > 0){
+                $("#startTime").attr('value', date+' '+$(selectedList[0]).html());
+                $("#hours").attr('value', selectedList.length);
+            }
+            else{
+                $("#startTime").removeAttr('value');
+                $("#hours").removeAttr('value');
+            }
+            console.log("start time: "+$("#startTime").val());
+            console.log("hours: "+$("#hours").val());
+        }
+        function clearDragData(){
+            moveSelected.style.width=0;
+            moveSelected.style.height=0;
+            moveSelected.style.top=0;
+            moveSelected.style.left=0;
+            moveSelected.style.bottom=0;
+            moveSelected.style.right=0;
+        }
+
+        $("#submit").click(function () {
+            if(selectedList.length == 0){
+                alert("您尚未选择预约时间段！");
+                return false;
+            }
+        });
+        $("form").submit(function () {
+            alert("修改成功！");
+        });
+        $("#cancel").click(function(){
+            window.history.back();
+        });
+    });
+
+</script>
+
+</body>
+</html>
