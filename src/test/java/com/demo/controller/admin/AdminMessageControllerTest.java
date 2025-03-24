@@ -1,6 +1,5 @@
-package com.demo;
+package com.demo.controller.admin;
 
-import com.demo.controller.admin.AdminMessageController;
 import com.demo.entity.Message;
 import com.demo.entity.vo.MessageVo;
 import com.demo.service.MessageService;
@@ -15,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
