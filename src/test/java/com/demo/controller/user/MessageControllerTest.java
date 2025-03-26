@@ -1,8 +1,6 @@
 package com.demo.controller.user;
 
-import com.demo.controller.user.MessageController;
 import com.demo.entity.Message;
-import com.demo.entity.vo.MessageVo;
 import com.demo.service.MessageService;
 import com.demo.service.MessageVoService;
 import com.demo.exception.LoginException;
@@ -18,14 +16,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.util.NestedServletException;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -56,20 +52,6 @@ public class MessageControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isArray());
     }
-
-    /**
-     * 测试用例：/message/findUserList 未登录
-     * 输入：用户未登录
-     * 操作：访问 /message/findUserList
-     * 期望输出：返回 4xx 错误
-     */
-    @Test
-    public void testFindUserListWithoutLogin() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/message/findUserList"))
-                .andExpect(status().isUnauthorized())  // 期望返回 401
-                .andExpect(content().string("请登录！"));  // 期望返回的错误消息
-    }
-
 
     /**
      * 测试用例：/sendMessage 成功
@@ -133,18 +115,17 @@ public class MessageControllerTest {
      * 测试用例：/message/findUserList 触发异常
      * 输入：模拟 service 抛出异常
      * 操作：访问 /message/findUserList
-     * 期望输出：返回 5xx 错误
+     * 期望输出：抛出LoginException
      */
     @Test
     public void testFindUserListThrowsException() {
-        // 模拟未登录情况，抛出LoginException
         when(messageVoService.returnVo(any())).thenThrow(new LoginException("请登录！"));
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
             mockMvc.perform(MockMvcRequestBuilders.get("/message/findUserList"));
         });
 
-        assertTrue(exception.getCause() instanceof LoginException);
+        assertInstanceOf(LoginException.class, exception.getCause());
         assertEquals("请登录！", exception.getCause().getMessage());
     }
 

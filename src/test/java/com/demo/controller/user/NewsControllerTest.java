@@ -1,11 +1,9 @@
 package com.demo.controller.user;
 
-import com.demo.controller.user.NewsController;
 import com.demo.entity.News;
 import com.demo.service.NewsService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
