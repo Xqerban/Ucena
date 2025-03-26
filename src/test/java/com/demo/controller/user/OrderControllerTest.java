@@ -207,6 +207,7 @@ public class OrderControllerTest {
      * 操作：POST /addOrder.do
      * 期望输出：抛出 LoginException
      * Unexpected type ==> expected: <com.demo.exception.LoginException> but was: <java.time.format.DateTimeParseException>
+     * 没有处理未登录情况
      */
     @Test
     public void testAddOrderThrowsLoginException() {
@@ -332,6 +333,7 @@ public class OrderControllerTest {
      * 操作：POST /modifyOrder
      * 期望输出：抛出 LoginException
      * Unexpected type ==> expected: <com.demo.exception.LoginException> but was: <java.time.format.DateTimeParseException>
+     * 没有处理未登录情况
      */
     @Test
     public void testModifyOrderThrowsLoginException() {

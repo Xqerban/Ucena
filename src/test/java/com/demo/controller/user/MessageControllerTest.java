@@ -101,6 +101,7 @@ public class MessageControllerTest {
      * 操作：发送 POST 请求到 /modifyMessage.do
      * 期望输出：返回 4xx 错误
      * NullPointerException: Cannot invoke "com.demo.entity.Message.setContent(String)" because "message" is null
+     * 没有处理 Message 为空的情况
      */
     @Test
     public void testModifyMessageNotFound() throws Exception {
