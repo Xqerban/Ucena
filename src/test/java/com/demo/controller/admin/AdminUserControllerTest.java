@@ -50,7 +50,12 @@ public class AdminUserControllerTest {
         response = new MockHttpServletResponse();
     }
     
-    // 测试用户管理列表 - TU-001：首页分页显示
+    /**
+     * 测试用例1：用户管理列表首页分页显示
+     * 输入：无
+     * 操作：访问用户管理页面
+     * 期望输出：返回用户管理页面，并包含总页数
+     */
     @Test
     public void testUserManage() {
         // 准备测试数据
@@ -67,7 +72,12 @@ public class AdminUserControllerTest {
         verify(userService, times(1)).findByUserID(any(Pageable.class));
     }
     
-    // 测试用户列表分页 - TU-002, TU-003, TU-004：分页参数边界值测试
+    /**
+     * 测试用例2：用户列表分页参数边界值测试
+     * 输入：正常页码、边界页码
+     * 操作：获取不同页码的用户列表
+     * 期望输出：返回对应页码的用户列表
+     */
     @Test
     public void testUserList() {
         // 准备测试数据
@@ -96,14 +106,24 @@ public class AdminUserControllerTest {
         verify(userService, times(1)).findByUserID(any(Pageable.class));
     }
     
-    // 测试用户添加页面 - 获取添加页面
+    /**
+     * 测试用例3：用户添加页面获取
+     * 输入：无
+     * 操作：访问用户添加页面
+     * 期望输出：返回用户添加页面
+     */
     @Test
     public void testUserAdd() {
         String viewName = adminUserController.user_add();
         assertEquals("admin/user_add", viewName);
     }
     
-    // 测试用户添加 - TU-005：正常添加用户
+    /**
+     * 测试用例4：正常添加用户
+     * 输入：有效的用户信息
+     * 操作：添加新用户
+     * 期望输出：用户被成功添加并重定向到用户管理页面
+     */
     @Test
     public void testAddUser() throws Exception {
         // 准备测试数据
@@ -118,7 +138,12 @@ public class AdminUserControllerTest {
         assertEquals("user_manage", response.getRedirectedUrl());
     }
     
-    // 测试用户编辑页面 - TU-009：获取编辑页面
+    /**
+     * 测试用例5：获取用户编辑页面
+     * 输入：有效的用户ID
+     * 操作：访问用户编辑页面
+     * 期望输出：返回用户编辑页面，并包含用户信息
+     */
     @Test
     public void testUserEdit() {
         // 准备测试数据
@@ -135,7 +160,12 @@ public class AdminUserControllerTest {
         verify(userService, times(1)).findById(1);
     }
     
-    // 测试修改用户 - TU-011：修改用户信息
+    /**
+     * 测试用例6：修改用户信息
+     * 输入：有效的用户信息
+     * 操作：修改用户信息
+     * 期望输出：用户信息被成功修改并重定向到用户管理页面
+     */
     @Test
     public void testModifyUser() throws Exception {
         // 准备测试数据
@@ -155,7 +185,12 @@ public class AdminUserControllerTest {
         assertEquals("user_manage", response.getRedirectedUrl());
     }
     
-    // 测试用户ID检查 - TU-013, TU-014：检查userID是否存在
+    /**
+     * 测试用例7：检查用户ID是否存在
+     * 输入：存在和不存在的用户ID
+     * 操作：检查用户ID
+     * 期望输出：不存在的用户ID返回true，存在的用户ID返回false
+     */
     @Test
     public void testCheckUserID() throws Exception {
         // 准备测试数据 - 不存在的用户ID
@@ -178,7 +213,12 @@ public class AdminUserControllerTest {
         verify(userService, times(1)).countUserID("existingUserID");
     }
     
-    // 测试删除用户 - TU-016：删除存在用户
+    /**
+     * 测试用例8：删除存在的用户
+     * 输入：有效的用户ID
+     * 操作：删除用户
+     * 期望输出：用户被成功删除并返回true
+     */
     @Test
     public void testDelUser() throws Exception {
         // 准备测试数据
@@ -192,7 +232,12 @@ public class AdminUserControllerTest {
         verify(userService, times(1)).delByID(1);
     }
     
-    // 测试删除用户 - TU-017：删除不存在用户
+    /**
+     * 测试用例9：删除不存在的用户
+     * 输入：无效的用户ID
+     * 操作：删除不存在的用户
+     * 期望输出：抛出异常
+     */
     @Test
     public void testDelNonExistingUser() throws Exception {
         // 准备测试数据
@@ -211,4 +256,3 @@ public class AdminUserControllerTest {
         verify(userService, times(1)).delByID(999);
     }
 }
-
