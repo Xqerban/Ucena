@@ -54,12 +54,8 @@ class MessageServiceImplTest {
     // ======================== preprocessing and postprocessing ========================
 
     // ==================================================================================
-    @Test
-    void findById() {
-        findById_shouldReturnMessageWhenExistId();
-        findById_shouldThrowWhenInvalidId();
-    }
 
+    @Test
     void findById_shouldReturnMessageWhenExistId() {
         when(messageDao.getOne(TEST_MESSAGE_ID)).thenReturn(testMessage);
 
@@ -69,6 +65,7 @@ class MessageServiceImplTest {
         verify(messageDao).getOne(TEST_MESSAGE_ID);
     }
 
+    @Test
     void findById_shouldThrowWhenInvalidId() {
 //        when(messageDao.getOne(-1)).thenThrow(new IllegalArgumentException());
 
@@ -79,12 +76,6 @@ class MessageServiceImplTest {
     // ==================================================================================
 
     @Test
-    void findByUser() {
-        findByUser_shouldReturnPagedMessagesWhenExistUserAndValidPageable();
-        findByUser_shouldThrowWhenInvalidPageable();
-        findByUser_shouldThrowWhenInvalidUser();
-    }
-
     void findByUser_shouldReturnPagedMessagesWhenExistUserAndValidPageable() {
         Page<Message> mockPage = new PageImpl<>(Collections.singletonList(testMessage));
         when(messageDao.findAllByUserID(TEST_USER_ID, pageable)).thenReturn(mockPage);
@@ -95,12 +86,14 @@ class MessageServiceImplTest {
         verify(messageDao).findAllByUserID(TEST_USER_ID, pageable);
     }
 
-    void findByUser_shouldThrowWhenInvalidPageable() {
+    @Test
+    void findByUser_shouldNotThrowWhenInvalidPageable() {
         // test with null pageable
         assertDoesNotThrow(() ->
                 messageService.findByUser(TEST_USER_ID, null));
     }
 
+    @Test
     void findByUser_shouldThrowWhenInvalidUser() {
         // Null userID
         assertThrows(IllegalArgumentException.class, () ->
@@ -114,11 +107,6 @@ class MessageServiceImplTest {
     // ==================================================================================
 
     @Test
-    void create() {
-        create_shouldReturnGeneratedIdWhenSuccess();
-        create_shouldThrowWhenMessageIsNull();
-    }
-
     void create_shouldReturnGeneratedIdWhenSuccess() {
         when(messageDao.save(any(Message.class))).thenReturn(testMessage);
 
@@ -128,19 +116,14 @@ class MessageServiceImplTest {
         verify(messageDao).save(any(Message.class));
     }
 
+    @Test
     void create_shouldThrowWhenMessageIsNull() {
         assertThrows(NullPointerException.class, () ->
                 messageService.create(null));
     }
 
-    // ==================================================================================
 
-    @Test
-    void delById() {
-        delById_shouldCallDeleteWhenValidId();
-        delById_shouldThrowWhenInvalidId();
-    }
-
+    @Test// ==================================================================================
     void delById_shouldCallDeleteWhenValidId() {
         doNothing().when(messageDao).deleteById(TEST_MESSAGE_ID);
 
@@ -149,6 +132,7 @@ class MessageServiceImplTest {
         verify(messageDao).deleteById(TEST_MESSAGE_ID);
     }
 
+    @Test
     void delById_shouldThrowWhenInvalidId() {
         // Negative ID
         assertThrows(IllegalArgumentException.class, () ->
@@ -162,11 +146,6 @@ class MessageServiceImplTest {
     // ==================================================================================
 
     @Test
-    void update() {
-        update_shouldCallSaveWhenValidMessage();
-        update_shouldThrowWhenNullMessage();
-    }
-
     void update_shouldCallSaveWhenValidMessage() {
         when(messageDao.save(any(Message.class))).thenReturn(testMessage);
 
@@ -175,6 +154,7 @@ class MessageServiceImplTest {
         verify(messageDao).save(any(Message.class));
     }
 
+    @Test
     void update_shouldThrowWhenNullMessage() {
         assertThrows(IllegalArgumentException.class, () ->
                 messageService.update(null));
@@ -183,11 +163,6 @@ class MessageServiceImplTest {
     // ==================================================================================
 
     @Test
-    void confirmMessage() {
-        confirmMessage_shouldUpdateStateToPassWhenMessageExists();
-        confirmMessage_shouldThrowWhenMessageNotFound();
-    }
-
     void confirmMessage_shouldUpdateStateToPassWhenMessageExists() {
         when(messageDao.findByMessageID(TEST_MESSAGE_ID)).thenReturn(testMessage);
         doNothing().when(messageDao).updateState(eq(STATE_PASS), eq(TEST_MESSAGE_ID));
@@ -197,6 +172,7 @@ class MessageServiceImplTest {
         verify(messageDao).updateState(STATE_PASS, TEST_MESSAGE_ID);
     }
 
+    @Test
     void confirmMessage_shouldThrowWhenMessageNotFound() {
         when(messageDao.findByMessageID(TEST_MESSAGE_ID)).thenReturn(null);
 
@@ -207,11 +183,6 @@ class MessageServiceImplTest {
     // ==================================================================================
 
     @Test
-    void rejectMessage() {
-        rejectMessage_shouldUpdateStateToRejectWhenMessageExists();
-        rejectMessage_shouldThrowWhenMessageNotFound();
-    }
-
     void rejectMessage_shouldUpdateStateToRejectWhenMessageExists() {
         when(messageDao.findByMessageID(TEST_MESSAGE_ID)).thenReturn(testMessage);
         doNothing().when(messageDao).updateState(eq(STATE_REJECT), eq(TEST_MESSAGE_ID));
@@ -221,6 +192,7 @@ class MessageServiceImplTest {
         verify(messageDao).updateState(STATE_REJECT, TEST_MESSAGE_ID);
     }
 
+    @Test
     void rejectMessage_shouldThrowWhenMessageNotFound() {
         when(messageDao.findByMessageID(999)).thenReturn(null);
 
@@ -231,11 +203,6 @@ class MessageServiceImplTest {
     // ==================================================================================
 
     @Test
-    void findWaitState() {
-        findWaitState_shouldReturnUnapprovedMessagesWhenValidPageable();
-        findWaitState_shouldThrowWhenInvalidPageable();
-    }
-
     void findWaitState_shouldReturnUnapprovedMessagesWhenValidPageable() {
         Page<Message> mockPage = new PageImpl<>(Collections.singletonList(testMessage));
         when(messageDao.findAllByState(STATE_NO_AUDIT, pageable)).thenReturn(mockPage);
@@ -246,6 +213,7 @@ class MessageServiceImplTest {
         verify(messageDao).findAllByState(STATE_NO_AUDIT, pageable);
     }
 
+    @Test
     void findWaitState_shouldThrowWhenInvalidPageable() {
         assertThrows(IllegalArgumentException.class, () ->
                 messageService.findWaitState(null));
@@ -254,11 +222,6 @@ class MessageServiceImplTest {
     // ==================================================================================
 
     @Test
-    void findPassState() {
-        findPassState_shouldReturnApprovedMessagesWhenValidPageable();
-        findPassState_shouldThrowWhenInvalidPageable();
-    }
-
     void findPassState_shouldReturnApprovedMessagesWhenValidPageable() {
         Page<Message> mockPage = new PageImpl<>(Collections.singletonList(testMessage));
         when(messageDao.findAllByState(STATE_PASS, pageable)).thenReturn(mockPage);
@@ -269,6 +232,7 @@ class MessageServiceImplTest {
         verify(messageDao).findAllByState(STATE_PASS, pageable);
     }
 
+    @Test
     void findPassState_shouldThrowWhenInvalidPageable() {
         assertThrows(IllegalArgumentException.class, () ->
                 messageService.findPassState(null));

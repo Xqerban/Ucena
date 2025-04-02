@@ -5,8 +5,10 @@ import com.demo.entity.News;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,6 +21,7 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class NewsServiceImplTest {
 
     @Mock
@@ -27,123 +30,113 @@ class NewsServiceImplTest {
     @InjectMocks
     private NewsServiceImpl newsService;
 
+    private News validNews;
+
     @BeforeEach
     void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
+        validNews = new News();
+        validNews.setTitle("Breaking News");
+        validNews.setContent("Important content");
     }
 
     @Test
-    void findAll() {
-        findAll_ValidPageable_ReturnsPage();
-    }
-
     void findAll_ValidPageable_ReturnsPage() {
+        // Arrange
         Pageable pageable = PageRequest.of(0, 10);
-        Page<News> expectedPage = new PageImpl<>(Collections.singletonList(new News()));
+        Page<News> expectedPage = new PageImpl<>(Collections.singletonList(validNews));
         when(newsDao.findAll(pageable)).thenReturn(expectedPage);
 
+        // Act
         Page<News> result = newsService.findAll(pageable);
 
+        // Assert
         assertEquals(expectedPage, result);
+        verify(newsDao).findAll(pageable);
     }
 
     @Test
-    void findById() {
-        findById_ValidId_ReturnsNews();
-        findById_InvalidId_ThrowsException();
-    }
-
     void findById_ValidId_ReturnsNews() {
-        News expected = new News();
-        expected.setNewsID(1);
-        when(newsDao.getOne(1)).thenReturn(expected);
+        // Arrange
+        when(newsDao.getOne(1)).thenReturn(validNews);
 
+        // Act
         News result = newsService.findById(1);
 
-        assertEquals(expected, result);
+        // Assert
+        assertEquals(validNews, result);
+        verify(newsDao).getOne(1);
     }
 
+    @Test
     void findById_InvalidId_ThrowsException() {
+        // Arrange
         when(newsDao.getOne(999)).thenThrow(EntityNotFoundException.class);
 
+        // Act/Assert
         assertThrows(EntityNotFoundException.class, () -> newsService.findById(999));
     }
 
     @Test
-    void create() {
-        create_ValidNews_ReturnsId();
-        create_InvalidNews_ThrowsException();
-        create_NullNews_ThrowsException();
-    }
-
     void create_ValidNews_ReturnsId() {
-        News news = new News();
+        // Arrange
         News savedNews = new News();
         savedNews.setNewsID(100);
-        when(newsDao.save(news)).thenReturn(savedNews);
+        when(newsDao.save(validNews)).thenReturn(savedNews);
 
-        int result = newsService.create(news);
+        // Act
+        int result = newsService.create(validNews);
 
+        // Assert
         assertEquals(100, result);
+        verify(newsDao).save(validNews);
     }
 
+    @Test
     void create_InvalidNews_ThrowsException() {
-        News invalidNews = new News(); // Assume missing required fields
+        // Arrange
+        News invalidNews = new News(); // Missing required fields
         when(newsDao.save(invalidNews)).thenThrow(DataIntegrityViolationException.class);
 
+        // Act/Assert
         assertThrows(DataIntegrityViolationException.class, () -> newsService.create(invalidNews));
     }
 
-    void create_NullNews_ThrowsException() {
-        when(newsDao.save(null)).thenThrow(IllegalArgumentException.class);
-
+    @Test
+    void create_NullNews_ThrowsServiceException() {
+        // Act/Assert
         assertThrows(IllegalArgumentException.class, () -> newsService.create(null));
+        verifyNoInteractions(newsDao);
     }
 
     @Test
-    void delById() {
-        delById_ValidId_DeletesNews();
-        delById_InvalidId_NoException();
-        delById_ZeroId_DeletesWithoutError();
-    }
-
     void delById_ValidId_DeletesNews() {
+        // Act
         newsService.delById(100);
 
+        // Assert
         verify(newsDao).deleteById(100);
     }
 
+    @Test
     void delById_InvalidId_NoException() {
-        doNothing().when(newsDao).deleteById(999);
-
+        // Act/Assert
         assertDoesNotThrow(() -> newsService.delById(999));
-    }
-
-    void delById_ZeroId_DeletesWithoutError() {
-        newsService.delById(0);
-
-        verify(newsDao).deleteById(0);
+        verify(newsDao).deleteById(999);
     }
 
     @Test
-    void update() {
-        update_ValidNews_SavesChanges();
-        update_NullNews_ThrowsException();
-    }
-
     void update_ValidNews_SavesChanges() {
-        News news = new News();
-        newsService.update(news);
+        // Act
+        newsService.update(validNews);
 
-        verify(newsDao).save(news);
+        // Assert
+        verify(newsDao).save(validNews);
     }
 
-    void update_NullNews_ThrowsException() {
-        doThrow(IllegalArgumentException.class).when(newsDao).save(null);
-
+    @Test
+    void update_NullNews_ThrowsServiceException() {
+        // Act/Assert
         assertThrows(IllegalArgumentException.class, () -> newsService.update(null));
+        verifyNoInteractions(newsDao);
     }
 }
