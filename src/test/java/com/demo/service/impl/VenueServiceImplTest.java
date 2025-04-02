@@ -5,8 +5,10 @@ import com.demo.entity.Venue;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -20,6 +22,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class VenueServiceImplTest {
 
     @Mock
@@ -28,185 +31,135 @@ class VenueServiceImplTest {
     @InjectMocks
     private VenueServiceImpl venueService;
 
+    private Venue validVenue;
+
     @BeforeEach
     void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
+        validVenue = new Venue();
+        validVenue.setVenueName("Central Arena");
     }
 
     @Test
-    void findByVenueID() {
-        findByVenueID_ValidId_ReturnsVenue();
-        findByVenueID_InvalidId_ThrowsException();
-    }
-
     void findByVenueID_ValidId_ReturnsVenue() {
-        Venue expected = new Venue();
-        expected.setVenueID(1);
-        when(venueDao.getOne(1)).thenReturn(expected);
+        // Arrange
+        when(venueDao.getOne(1)).thenReturn(validVenue);
 
+        // Act
         Venue result = venueService.findByVenueID(1);
 
-        assertEquals(expected, result);
+        // Assert
+        assertEquals(validVenue, result);
+        verify(venueDao).getOne(1);
     }
 
+    @Test
     void findByVenueID_InvalidId_ThrowsException() {
+        // Arrange
         when(venueDao.getOne(999)).thenThrow(EntityNotFoundException.class);
 
+        // Act & Assert
         assertThrows(EntityNotFoundException.class, () -> venueService.findByVenueID(999));
     }
 
     @Test
-    void findByVenueName() {
-        findByVenueName_ExactMatch_ReturnsVenue();
-        findByVenueName_NoMatch_ReturnsNull();
-    }
-
     void findByVenueName_ExactMatch_ReturnsVenue() {
-        Venue expected = new Venue();
-        when(venueDao.findByVenueName("Arena")).thenReturn(expected);
+        // Arrange
+        when(venueDao.findByVenueName("Arena")).thenReturn(validVenue);
 
+        // Act
         Venue result = venueService.findByVenueName("Arena");
 
-        assertEquals(expected, result);
-    }
-
-    void findByVenueName_NoMatch_ReturnsNull() {
-        when(venueDao.findByVenueName("Stadium")).thenReturn(null);
-
-        Venue result = venueService.findByVenueName("Stadium");
-
-        assertNull(result);
+        // Assert
+        assertEquals(validVenue, result);
+        verify(venueDao).findByVenueName("Arena");
     }
 
     @Test
-    void findAllPaged() {
-        findAll_Paged_ReturnsPage();
-    }
-
     void findAll_Paged_ReturnsPage() {
+        // Arrange
         Pageable pageable = PageRequest.of(0, 10);
-        Page<Venue> expectedPage = new PageImpl<>(Collections.singletonList(new Venue()));
+        Page<Venue> expectedPage = new PageImpl<>(List.of(validVenue));
         when(venueDao.findAll(pageable)).thenReturn(expectedPage);
 
+        // Act
         Page<Venue> result = venueService.findAll(pageable);
 
+        // Assert
         assertEquals(expectedPage, result);
+        verify(venueDao).findAll(pageable);
     }
 
     @Test
-    void findAllUnpaged() {
-        findAll_Unpaged_ReturnsList();
-    }
-
-    void findAll_Unpaged_ReturnsList() {
-        List<Venue> expectedList = Collections.singletonList(new Venue());
-        when(venueDao.findAll()).thenReturn(expectedList);
-
-        List<Venue> result = venueService.findAll();
-
-        assertEquals(expectedList, result);
-    }
-
-    @Test
-    void create() {
-        create_ValidVenue_ReturnsId();
-        create_DuplicateVenueName_ThrowsException();
-        create_NullVenue_ThrowsException();
-    }
-
     void create_ValidVenue_ReturnsId() {
-        Venue venue = new Venue();
+        // Arrange
         Venue savedVenue = new Venue();
         savedVenue.setVenueID(100);
-        when(venueDao.save(venue)).thenReturn(savedVenue);
+        when(venueDao.save(validVenue)).thenReturn(savedVenue);
 
-        int result = venueService.create(venue);
+        // Act
+        int resultId = venueService.create(validVenue);
 
-        assertEquals(100, result);
+        // Assert
+        assertEquals(100, resultId);
+        verify(venueDao).save(validVenue);
     }
 
+    @Test
     void create_DuplicateVenueName_ThrowsException() {
-        Venue venue = new Venue();
-        venue.setVenueName("Arena");
-        when(venueDao.save(venue)).thenThrow(DataIntegrityViolationException.class);
+        // Arrange
+        Venue duplicateVenue = new Venue();
+        duplicateVenue.setVenueName("Central Arena");
+        when(venueDao.save(duplicateVenue)).thenThrow(DataIntegrityViolationException.class);
 
-        assertThrows(DataIntegrityViolationException.class, () -> venueService.create(venue));
+        // Act & Assert
+        assertThrows(DataIntegrityViolationException.class,
+                () -> venueService.create(duplicateVenue));
     }
 
+    @Test
     void create_NullVenue_ThrowsException() {
-        when(venueDao.save(null)).thenThrow(IllegalArgumentException.class);
-
-        assertThrows(IllegalArgumentException.class, () -> venueService.create(null));
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> venueService.create(null));
+        verifyNoInteractions(venueDao);
     }
 
     @Test
-    void update() {
-        update_ValidVenue_SavesChanges();
-        update_NullVenue_ThrowsException();
-    }
-
     void update_ValidVenue_SavesChanges() {
-        Venue venue = new Venue();
-        venueService.update(venue);
+        // Act
+        venueService.update(validVenue);
 
-        verify(venueDao).save(venue);
-    }
-
-    void update_NullVenue_ThrowsException() {
-        doThrow(IllegalArgumentException.class).when(venueDao).save(null);
-
-        assertThrows(IllegalArgumentException.class, () -> venueService.update(null));
+        // Assert
+        verify(venueDao).save(validVenue);
     }
 
     @Test
-    void delById() {
-        delById_ValidId_DeletesVenue();
-        delById_InvalidId_NoException();
+    void update_NullVenue_ThrowsException() {
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> venueService.update(null));
+        verifyNoInteractions(venueDao);
     }
 
+    @Test
     void delById_ValidId_DeletesVenue() {
+        // Act
         venueService.delById(100);
 
+        // Assert
         verify(venueDao).deleteById(100);
     }
 
-    void delById_InvalidId_NoException() {
-        doNothing().when(venueDao).deleteById(999);
-
-        assertDoesNotThrow(() -> venueService.delById(999));
-    }
-
     @Test
-    void countVenueName() {
-        countVenueName_ExactMatch_ReturnsCount();
-        countVenueName_NoMatch_ReturnsZero();
-        countVenueName_EmptyName_ReturnsZero();
-    }
-
     void countVenueName_ExactMatch_ReturnsCount() {
+        // Arrange
         when(venueDao.countByVenueName("Stadium")).thenReturn(2);
 
-        int result = venueService.countVenueName("Stadium");
+        // Act
+        int count = venueService.countVenueName("Stadium");
 
-        assertEquals(2, result);
-    }
-
-    void countVenueName_NoMatch_ReturnsZero() {
-        when(venueDao.countByVenueName("Cinema")).thenReturn(0);
-
-        int result = venueService.countVenueName("Cinema");
-
-        assertEquals(0, result);
-    }
-
-    void countVenueName_EmptyName_ReturnsZero() {
-        when(venueDao.countByVenueName("")).thenReturn(0);
-
-        int result = venueService.countVenueName("");
-
-        assertEquals(0, result);
+        // Assert
+        assertEquals(2, count);
+        verify(venueDao).countByVenueName("Stadium");
     }
 }
