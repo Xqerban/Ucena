@@ -34,7 +34,8 @@ class MessageVoServiceImplTest {
     @InjectMocks
     private MessageVoServiceImpl messageVoService;
 
-    private Message validMessage;
+    private Message
+            validMessage;
     private User validUser;
     private final LocalDateTime testTime = LocalDateTime.of(2024, 1, 1, 12, 0);
 
