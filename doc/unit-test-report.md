@@ -1,72 +1,72 @@
 ### MessageServiceImpl
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.MessageServiceImpl.java:findById(int messageID)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.MessageServiceImplTest.java:findById(int messageID)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.MessageServiceImpl.java:findById(int messageID)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.MessageServiceImplTest.java:findById(int messageID)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-| 0 | µ±´æÔÚ¶ÔÓ¦IDÊ±·µ»ØÏûÏ¢ | ·µ»ØµÄÏûÏ¢IDÓëÊäÈëÒ»ÖÂ |    ·µ»ØµÄÏûÏ¢IDÓëÊäÈëÒ»ÖÂ      |   ÕıÈ·   |
-| 1 | µ±IDÎŞĞ§Ê±£¨Èç¸ºÊı£© | Å×³öIllegalArgumentException |     ²»Å×³öIllegalArgumentException     |  ´íÎó    |
+| 0 | å½“å­˜åœ¨å¯¹åº”IDæ—¶è¿”å›æ¶ˆæ¯ | è¿”å›çš„æ¶ˆæ¯IDä¸è¾“å…¥ä¸€è‡´ |    è¿”å›çš„æ¶ˆæ¯IDä¸è¾“å…¥ä¸€è‡´      |   æ­£ç¡®   |
+| 1 | å½“IDæ— æ•ˆæ—¶ï¼ˆå¦‚è´Ÿæ•°ï¼‰ | æŠ›å‡ºIllegalArgumentException |     ä¸æŠ›å‡ºIllegalArgumentException     |  é”™è¯¯    |
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.MessageServiceImpl.java:findByUser(String userID, Pageable pageable)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.MessageServiceImplTest.java:findByUser(String userID, Pageable pageable)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.MessageServiceImpl.java:findByUser(String userID, Pageable pageable)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.MessageServiceImplTest.java:findByUser(String userID, Pageable pageable)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-| 2 | ´æÔÚÓÃ»§IDÇÒ·ÖÒ³²ÎÊıÓĞĞ§ | ·µ»Ø·ÖÒ³Êı¾İ°üº¬Ò»Ìõ¼ÇÂ¼ |    ·µ»Ø·ÖÒ³Êı¾İ°üº¬Ò»Ìõ¼ÇÂ¼      |  ÕıÈ·    |
-| 3 | ·ÖÒ³²ÎÊıÎªnull | ·½·¨Õı³£Ö´ĞĞ£¬²»Å×³öÒì³£ |    ·½·¨Õı³£Ö´ĞĞ£¬²»Å×³öÒì³£      |    ÕıÈ·  |
-| 4 | ÓÃ»§IDÎŞĞ§£¨¿Õ»ònull£© | Å×³öIllegalArgumentException |    ²»Å×³öIllegalArgumentException      |   ´íÎó   |
+| 2 | å­˜åœ¨ç”¨æˆ·IDä¸”åˆ†é¡µå‚æ•°æœ‰æ•ˆ | è¿”å›åˆ†é¡µæ•°æ®åŒ…å«ä¸€æ¡è®°å½• |    è¿”å›åˆ†é¡µæ•°æ®åŒ…å«ä¸€æ¡è®°å½•      |  æ­£ç¡®    |
+| 3 | åˆ†é¡µå‚æ•°ä¸ºnull | æ–¹æ³•æ­£å¸¸æ‰§è¡Œï¼Œä¸æŠ›å‡ºå¼‚å¸¸ |    æ–¹æ³•æ­£å¸¸æ‰§è¡Œï¼Œä¸æŠ›å‡ºå¼‚å¸¸      |    æ­£ç¡®  |
+| 4 | ç”¨æˆ·IDæ— æ•ˆï¼ˆç©ºæˆ–nullï¼‰ | æŠ›å‡ºIllegalArgumentException |    ä¸æŠ›å‡ºIllegalArgumentException      |   é”™è¯¯   |
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.MessageServiceImpl.java:create(Message message)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.MessageServiceImplTest.java:create(Message message)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.MessageServiceImpl.java:create(Message message)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.MessageServiceImplTest.java:create(Message message)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-| 5 | ³É¹¦´´½¨ÏûÏ¢ | ·µ»ØÉú³ÉµÄIDÎª1 |    ·µ»ØÉú³ÉµÄIDÎª1      |   ÕıÈ·   |
-| 6 | ÏûÏ¢¶ÔÏóÎªnull | Å×³öNullPointerException |     Å×³öNullPointerException     |  ÕıÈ·    |
+| 5 | æˆåŠŸåˆ›å»ºæ¶ˆæ¯ | è¿”å›ç”Ÿæˆçš„IDä¸º1 |    è¿”å›ç”Ÿæˆçš„IDä¸º1      |   æ­£ç¡®   |
+| 6 | æ¶ˆæ¯å¯¹è±¡ä¸ºnull | æŠ›å‡ºNullPointerException |     æŠ›å‡ºNullPointerException     |  æ­£ç¡®    |
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.MessageServiceImpl.java:delById(int messageID)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.MessageServiceImplTest.java:delById(int messageID)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.MessageServiceImpl.java:delById(int messageID)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.MessageServiceImplTest.java:delById(int messageID)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-| 7 | É¾³ıÓĞĞ§IDµÄÏûÏ¢ | µ÷ÓÃÉ¾³ı·½·¨ÎŞÒì³£ |    µ÷ÓÃÉ¾³ı·½·¨ÎŞÒì³£      |   ÕıÈ·   |
-| 8 | É¾³ıÎŞĞ§ID£¨Èç¸ºÊı»ò0£© | Å×³öIllegalArgumentException |    ²»Å×³öIllegalArgumentException      |  ´íÎó    |
+| 7 | åˆ é™¤æœ‰æ•ˆIDçš„æ¶ˆæ¯ | è°ƒç”¨åˆ é™¤æ–¹æ³•æ— å¼‚å¸¸ |    è°ƒç”¨åˆ é™¤æ–¹æ³•æ— å¼‚å¸¸      |   æ­£ç¡®   |
+| 8 | åˆ é™¤æ— æ•ˆIDï¼ˆå¦‚è´Ÿæ•°æˆ–0ï¼‰ | æŠ›å‡ºIllegalArgumentException |    ä¸æŠ›å‡ºIllegalArgumentException      |  é”™è¯¯    |
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.MessageServiceImpl.java:update(Message message)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.MessageServiceImplTest.java:update(Message message)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.MessageServiceImpl.java:update(Message message)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.MessageServiceImplTest.java:update(Message message)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-| 9 | ¸üĞÂÓĞĞ§ÏûÏ¢¶ÔÏó | µ÷ÓÃ±£´æ·½·¨ÎŞÒì³£ |µ÷ÓÃ±£´æ·½·¨ÎŞÒì³£           |ÕıÈ·      |
-| 10 | ÏûÏ¢¶ÔÏóÎªnull | Å×³öIllegalArgumentException |Å×³öIllegalArgumentException           |´íÎó      |
+| 9 | æ›´æ–°æœ‰æ•ˆæ¶ˆæ¯å¯¹è±¡ | è°ƒç”¨ä¿å­˜æ–¹æ³•æ— å¼‚å¸¸ |è°ƒç”¨ä¿å­˜æ–¹æ³•æ— å¼‚å¸¸           |æ­£ç¡®      |
+| 10 | æ¶ˆæ¯å¯¹è±¡ä¸ºnull | æŠ›å‡ºIllegalArgumentException |æŠ›å‡ºIllegalArgumentException           |é”™è¯¯      |
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.MessageServiceImpl.java:confirmMessage(int messageID)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.MessageServiceImplTest.java:confirmMessage(int messageID)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.MessageServiceImpl.java:confirmMessage(int messageID)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.MessageServiceImplTest.java:confirmMessage(int messageID)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-| 11 | È·ÈÏ´æÔÚµÄÏûÏ¢ | ÏûÏ¢×´Ì¬¸üĞÂÎªÍ¨¹ı |    ÏûÏ¢×´Ì¬¸üĞÂÎªÍ¨¹ı      |   ÕıÈ·   |
-| 12 | ÏûÏ¢²»´æÔÚÊ±È·ÈÏ | Å×³öRuntimeException |   Å×³öRuntimeException       |  ÕıÈ·   |
+| 11 | ç¡®è®¤å­˜åœ¨çš„æ¶ˆæ¯ | æ¶ˆæ¯çŠ¶æ€æ›´æ–°ä¸ºé€šè¿‡ |    æ¶ˆæ¯çŠ¶æ€æ›´æ–°ä¸ºé€šè¿‡      |   æ­£ç¡®   |
+| 12 | æ¶ˆæ¯ä¸å­˜åœ¨æ—¶ç¡®è®¤ | æŠ›å‡ºRuntimeException |   æŠ›å‡ºRuntimeException       |  æ­£ç¡®   |
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.MessageServiceImpl.java:rejectMessage(int messageID)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.MessageServiceImplTest.java:rejectMessage(int messageID)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.MessageServiceImpl.java:rejectMessage(int messageID)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.MessageServiceImplTest.java:rejectMessage(int messageID)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-| 13 | ¾Ü¾ø´æÔÚµÄÏûÏ¢ | ÏûÏ¢×´Ì¬¸üĞÂÎª¾Ü¾ø |ÏûÏ¢×´Ì¬¸üĞÂÎª¾Ü¾ø           |ÕıÈ·      |
-| 14 | ÏûÏ¢²»´æÔÚÊ±¾Ü¾ø | Å×³öRuntimeException |Å×³öRuntimeException           |ÕıÈ·      |
+| 13 | æ‹’ç»å­˜åœ¨çš„æ¶ˆæ¯ | æ¶ˆæ¯çŠ¶æ€æ›´æ–°ä¸ºæ‹’ç» |æ¶ˆæ¯çŠ¶æ€æ›´æ–°ä¸ºæ‹’ç»           |æ­£ç¡®      |
+| 14 | æ¶ˆæ¯ä¸å­˜åœ¨æ—¶æ‹’ç» | æŠ›å‡ºRuntimeException |æŠ›å‡ºRuntimeException           |æ­£ç¡®      |
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.MessageServiceImpl.java:findWaitState(Pageable pageable)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.MessageServiceImplTest.java:findWaitState(Pageable pageable)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.MessageServiceImpl.java:findWaitState(Pageable pageable)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.MessageServiceImplTest.java:findWaitState(Pageable pageable)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-| 15 | ·ÖÒ³²ÎÊıÓĞĞ§Ê±²éÑ¯´ıÉóºËÏûÏ¢ | ·µ»Ø·ÖÒ³Êı¾İ°üº¬Ò»Ìõ¼ÇÂ¼ | ·µ»Ø·ÖÒ³Êı¾İ°üº¬Ò»Ìõ¼ÇÂ¼          | ÕıÈ·      |
-| 16 | ·ÖÒ³²ÎÊıÎªnull | Å×³öIllegalArgumentException |²»Å×³öIllegalArgumentException           |´íÎó      |
+| 15 | åˆ†é¡µå‚æ•°æœ‰æ•ˆæ—¶æŸ¥è¯¢å¾…å®¡æ ¸æ¶ˆæ¯ | è¿”å›åˆ†é¡µæ•°æ®åŒ…å«ä¸€æ¡è®°å½• | è¿”å›åˆ†é¡µæ•°æ®åŒ…å«ä¸€æ¡è®°å½•          | æ­£ç¡®      |
+| 16 | åˆ†é¡µå‚æ•°ä¸ºnull | æŠ›å‡ºIllegalArgumentException |ä¸æŠ›å‡ºIllegalArgumentException           |é”™è¯¯      |
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.MessageServiceImpl.java:findPassState(Pageable pageable)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.MessageServiceImplTest.java:findPassState(Pageable pageable)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.MessageServiceImpl.java:findPassState(Pageable pageable)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.MessageServiceImplTest.java:findPassState(Pageable pageable)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-| 17 | ·ÖÒ³²ÎÊıÓĞĞ§Ê±²éÑ¯ÒÑÍ¨¹ıÏûÏ¢ | ·µ»Ø·ÖÒ³Êı¾İ°üº¬Ò»Ìõ¼ÇÂ¼ | ·µ»Ø·ÖÒ³Êı¾İ°üº¬Ò»Ìõ¼ÇÂ¼          | ÕıÈ·      |
-| 18 | ·ÖÒ³²ÎÊıÎªnull | Å×³öIllegalArgumentException |²»Å×³öIllegalArgumentException           |´íÎó      |
+| 17 | åˆ†é¡µå‚æ•°æœ‰æ•ˆæ—¶æŸ¥è¯¢å·²é€šè¿‡æ¶ˆæ¯ | è¿”å›åˆ†é¡µæ•°æ®åŒ…å«ä¸€æ¡è®°å½• | è¿”å›åˆ†é¡µæ•°æ®åŒ…å«ä¸€æ¡è®°å½•          | æ­£ç¡®      |
+| 18 | åˆ†é¡µå‚æ•°ä¸ºnull | æŠ›å‡ºIllegalArgumentException |ä¸æŠ›å‡ºIllegalArgumentException           |é”™è¯¯      |
 
 ### MessageVoServiceImpl
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.MessageVoServiceImpl.java:returnMessageVoByMessageID(int messageID)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.MessageVoServiceImplTest.java:returnMessageVoByMessageID(int messageID)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.MessageVoServiceImpl.java:returnMessageVoByMessageID(int messageID)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.MessageVoServiceImplTest.java:returnMessageVoByMessageID(int messageID)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -74,9 +74,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.MessageVoServiceImpl.java:returnVo(List<Message> messages)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.MessageVoServiceImplTest.java:returnVo(List<Message> messages)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.MessageVoServiceImpl.java:returnVo(List<Message> messages)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.MessageVoServiceImplTest.java:returnVo(List<Message> messages)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -85,54 +85,54 @@
 
 
 ### NewsServiceImpl
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.NewsServiceImpl.java:findAll(Pageable pageable)`  
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.NewsServiceImplTest.java:findAll(Pageable pageable)`  
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |  
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.NewsServiceImpl.java:findAll(Pageable pageable)`  
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.NewsServiceImplTest.java:findAll(Pageable pageable)`  
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |  
 |:--------:|:--------:|:--------:|:--------:|:----:|  
-| 0 | ·ÖÒ³²ÎÊıÓĞĞ§Ê±²éÑ¯ĞÂÎÅ | ·µ»Ø·ÖÒ³Êı¾İ£¨°üº¬Ò»Ìõ¼ÇÂ¼£© | ·µ»Ø·ÖÒ³Êı¾İ£¨°üº¬Ò»Ìõ¼ÇÂ¼£©           |      ÕıÈ·|
+| 0 | åˆ†é¡µå‚æ•°æœ‰æ•ˆæ—¶æŸ¥è¯¢æ–°é—» | è¿”å›åˆ†é¡µæ•°æ®ï¼ˆåŒ…å«ä¸€æ¡è®°å½•ï¼‰ | è¿”å›åˆ†é¡µæ•°æ®ï¼ˆåŒ…å«ä¸€æ¡è®°å½•ï¼‰           |      æ­£ç¡®|
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.NewsServiceImpl.java:findById(int newsID)`  
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.NewsServiceImplTest.java:findById(int newsID)`  
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |  
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.NewsServiceImpl.java:findById(int newsID)`  
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.NewsServiceImplTest.java:findById(int newsID)`  
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |  
 |:--------:|:--------:|:--------:|:--------:|:----:|  
-| 0 | Í¨¹ıÓĞĞ§ID²éÑ¯ĞÂÎÅ | ·µ»Ø¶ÔÓ¦µÄĞÂÎÅ¶ÔÏó | ·µ»Ø¶ÔÓ¦µÄĞÂÎÅ¶ÔÏó           |      ÕıÈ·|  
-| 1 | Í¨¹ıÎŞĞ§ID²éÑ¯ĞÂÎÅ | Å×³öEntityNotFoundException | Å×³öEntityNotFoundException           |      ÕıÈ·|
+| 0 | é€šè¿‡æœ‰æ•ˆIDæŸ¥è¯¢æ–°é—» | è¿”å›å¯¹åº”çš„æ–°é—»å¯¹è±¡ | è¿”å›å¯¹åº”çš„æ–°é—»å¯¹è±¡           |      æ­£ç¡®|  
+| 1 | é€šè¿‡æ— æ•ˆIDæŸ¥è¯¢æ–°é—» | æŠ›å‡ºEntityNotFoundException | æŠ›å‡ºEntityNotFoundException           |      æ­£ç¡®|
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.NewsServiceImpl.java:create(News news)`  
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.NewsServiceImplTest.java:create(News news)`  
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |  
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.NewsServiceImpl.java:create(News news)`  
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.NewsServiceImplTest.java:create(News news)`  
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |  
 |:--------:|:--------:|:--------:|:--------:|:----:|  
-| 0 | ´´½¨ÓĞĞ§ĞÂÎÅ | ·µ»ØÉú³ÉµÄĞÂÎÅID£¨100£© | ·µ»ØÉú³ÉµÄĞÂÎÅID£¨100£©           |      ÕıÈ·|  
-| 1 | ´´½¨È±ÉÙ±ØÌî×Ö¶ÎµÄĞÂÎÅ | Å×³öDataIntegrityViolationException | Å×³öDataIntegrityViolationException           |      ÕıÈ·|  
-| 2 | ´«Èënull´´½¨ĞÂÎÅ | Å×³öIllegalArgumentException |   ²»Å×³öIllegalArgumentException       |    ´íÎó  |
+| 0 | åˆ›å»ºæœ‰æ•ˆæ–°é—» | è¿”å›ç”Ÿæˆçš„æ–°é—»IDï¼ˆ100ï¼‰ | è¿”å›ç”Ÿæˆçš„æ–°é—»IDï¼ˆ100ï¼‰           |      æ­£ç¡®|  
+| 1 | åˆ›å»ºç¼ºå°‘å¿…å¡«å­—æ®µçš„æ–°é—» | æŠ›å‡ºDataIntegrityViolationException | æŠ›å‡ºDataIntegrityViolationException           |      æ­£ç¡®|  
+| 2 | ä¼ å…¥nullåˆ›å»ºæ–°é—» | æŠ›å‡ºIllegalArgumentException |   ä¸æŠ›å‡ºIllegalArgumentException       |    é”™è¯¯  |
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.NewsServiceImpl.java:delById(int newsID)`  
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.NewsServiceImplTest.java:delById(int newsID)`  
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |  
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.NewsServiceImpl.java:delById(int newsID)`  
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.NewsServiceImplTest.java:delById(int newsID)`  
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |  
 |:--------:|:--------:|:--------:|:--------:|:----:|  
-| 0 | É¾³ıÓĞĞ§IDµÄĞÂÎÅ | µ÷ÓÃÉ¾³ı·½·¨ÎŞÒì³£ | µ÷ÓÃÉ¾³ı·½·¨ÎŞÒì³£           |      ÕıÈ·|  
-| 1 | É¾³ıÎŞĞ§IDµÄĞÂÎÅ | ²»Å×³öÒì³££¬Õı³£Ö´ĞĞ | ²»Å×³öÒì³££¬Õı³£Ö´ĞĞ           |      ÕıÈ·|
+| 0 | åˆ é™¤æœ‰æ•ˆIDçš„æ–°é—» | è°ƒç”¨åˆ é™¤æ–¹æ³•æ— å¼‚å¸¸ | è°ƒç”¨åˆ é™¤æ–¹æ³•æ— å¼‚å¸¸           |      æ­£ç¡®|  
+| 1 | åˆ é™¤æ— æ•ˆIDçš„æ–°é—» | ä¸æŠ›å‡ºå¼‚å¸¸ï¼Œæ­£å¸¸æ‰§è¡Œ | ä¸æŠ›å‡ºå¼‚å¸¸ï¼Œæ­£å¸¸æ‰§è¡Œ           |      æ­£ç¡®|
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.NewsServiceImpl.java:update(News news)`  
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.NewsServiceImplTest.java:update(News news)`  
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |  
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.NewsServiceImpl.java:update(News news)`  
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.NewsServiceImplTest.java:update(News news)`  
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |  
 |:--------:|:--------:|:--------:|:--------:|:----:|  
-| 0 | ¸üĞÂÓĞĞ§ĞÂÎÅ | µ÷ÓÃ±£´æ·½·¨ÎŞÒì³£ | µ÷ÓÃ±£´æ·½·¨ÎŞÒì³£           |      ÕıÈ·|  
-| 1 | ´«Èënull¸üĞÂĞÂÎÅ | Å×³öIllegalArgumentException |    ²»Å×³öIllegalArgumentException      |   ´íÎó   |
+| 0 | æ›´æ–°æœ‰æ•ˆæ–°é—» | è°ƒç”¨ä¿å­˜æ–¹æ³•æ— å¼‚å¸¸ | è°ƒç”¨ä¿å­˜æ–¹æ³•æ— å¼‚å¸¸           |      æ­£ç¡®|  
+| 1 | ä¼ å…¥nullæ›´æ–°æ–°é—» | æŠ›å‡ºIllegalArgumentException |    ä¸æŠ›å‡ºIllegalArgumentException      |   é”™è¯¯   |
 
 
 ### OrderServiceImpl
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.OrderServiceImpl.java:findById(int OrderID)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.OrderServiceImplTest.java:findById(int OrderID)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.OrderServiceImpl.java:findById(int OrderID)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.OrderServiceImplTest.java:findById(int OrderID)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -140,9 +140,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.OrderServiceImpl.java:findDateOrder(int venueID, LocalDateTime startTime, LocalDateTime startTime2)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.OrderServiceImplTest.java:findDateOrder(int venueID, LocalDateTime startTime, LocalDateTime startTime2)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.OrderServiceImpl.java:findDateOrder(int venueID, LocalDateTime startTime, LocalDateTime startTime2)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.OrderServiceImplTest.java:findDateOrder(int venueID, LocalDateTime startTime, LocalDateTime startTime2)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -150,9 +150,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.OrderServiceImpl.java:findUserOrder(String userID, Pageable pageable)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.OrderServiceImplTest.java:findUserOrder(String userID, Pageable pageable)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.OrderServiceImpl.java:findUserOrder(String userID, Pageable pageable)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.OrderServiceImplTest.java:findUserOrder(String userID, Pageable pageable)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -160,9 +160,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.OrderServiceImpl.java:updateOrder(int orderID, String venueName, LocalDateTime startTime, int hours, String userID)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.OrderServiceImplTest.java:updateOrder(int orderID, String venueName, LocalDateTime startTime, int hours, String userID)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.OrderServiceImpl.java:updateOrder(int orderID, String venueName, LocalDateTime startTime, int hours, String userID)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.OrderServiceImplTest.java:updateOrder(int orderID, String venueName, LocalDateTime startTime, int hours, String userID)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -170,9 +170,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.OrderServiceImpl.java:submit(String venueName, LocalDateTime startTime, int hours, String userID)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.OrderServiceImplTest.java:submit(String venueName, LocalDateTime startTime, int hours, String userID)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.OrderServiceImpl.java:submit(String venueName, LocalDateTime startTime, int hours, String userID)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.OrderServiceImplTest.java:submit(String venueName, LocalDateTime startTime, int hours, String userID)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -180,9 +180,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.OrderServiceImpl.java:delOrder(int orderID)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.OrderServiceImplTest.java:delOrder(int orderID)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.OrderServiceImpl.java:delOrder(int orderID)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.OrderServiceImplTest.java:delOrder(int orderID)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -190,9 +190,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.OrderServiceImpl.java:confirmOrder(int orderID)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.OrderServiceImplTest.java:confirmOrder(int orderID)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.OrderServiceImpl.java:confirmOrder(int orderID)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.OrderServiceImplTest.java:confirmOrder(int orderID)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -200,9 +200,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.OrderServiceImpl.java:finishOrder(int orderID)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.OrderServiceImplTest.java:finishOrder(int orderID)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.OrderServiceImpl.java:finishOrder(int orderID)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.OrderServiceImplTest.java:finishOrder(int orderID)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -210,9 +210,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.OrderServiceImpl.java:rejectOrder(int orderID)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.OrderServiceImplTest.java:rejectOrder(int orderID)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.OrderServiceImpl.java:rejectOrder(int orderID)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.OrderServiceImplTest.java:rejectOrder(int orderID)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -220,9 +220,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.OrderServiceImpl.java:findNoAuditOrder(Pageable pageable)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.OrderServiceImplTest.java:findNoAuditOrder(Pageable pageable)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.OrderServiceImpl.java:findNoAuditOrder(Pageable pageable)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.OrderServiceImplTest.java:findNoAuditOrder(Pageable pageable)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -230,9 +230,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.OrderServiceImpl.java:findAuditOrder()`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.OrderServiceImplTest.java:findAuditOrder()`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.OrderServiceImpl.java:findAuditOrder()`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.OrderServiceImplTest.java:findAuditOrder()`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -241,9 +241,9 @@
 
 
 ### OrderVoServiceImpl
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.OrderVoServiceImpl.java:returnOrderVoByOrderID(int orderID)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.OrderVoServiceImplTest.java:returnOrderVoByOrderID(int orderID)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.OrderVoServiceImpl.java:returnOrderVoByOrderID(int orderID)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.OrderVoServiceImplTest.java:returnOrderVoByOrderID(int orderID)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -251,9 +251,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.OrderVoServiceImpl.java:returnVo(List<Order> list)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.OrderVoServiceImplTest.java:returnVo(List<Order> list)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.OrderVoServiceImpl.java:returnVo(List<Order> list)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.OrderVoServiceImplTest.java:returnVo(List<Order> list)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -262,9 +262,9 @@
 
 
 ### UserServiceImpl
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.UserServiceImpl.java:findByUserID(String userID)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.UserServiceImplTest.java:findByUserID(String userID)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.UserServiceImpl.java:findByUserID(String userID)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.UserServiceImplTest.java:findByUserID(String userID)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -272,9 +272,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.UserServiceImpl.java:findById(int id)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.UserServiceImplTest.java:findById(int id)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.UserServiceImpl.java:findById(int id)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.UserServiceImplTest.java:findById(int id)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -282,9 +282,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.UserServiceImpl.java:findByUserID(Pageable pageable)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.UserServiceImplTest.java:findByUserID(Pageable pageable)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.UserServiceImpl.java:findByUserID(Pageable pageable)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.UserServiceImplTest.java:findByUserID(Pageable pageable)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -292,9 +292,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.UserServiceImpl.java:checkLogin(String userID, String password)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.UserServiceImplTest.java:checkLogin(String userID, String password)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.UserServiceImpl.java:checkLogin(String userID, String password)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.UserServiceImplTest.java:checkLogin(String userID, String password)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -302,9 +302,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.UserServiceImpl.java:create(User user)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.UserServiceImplTest.java:create(User user)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.UserServiceImpl.java:create(User user)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.UserServiceImplTest.java:create(User user)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -312,9 +312,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.UserServiceImpl.java:delByID(int id)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.UserServiceImplTest.java:delByID(int id)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.UserServiceImpl.java:delByID(int id)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.UserServiceImplTest.java:delByID(int id)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -322,9 +322,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.UserServiceImpl.java:updateUser(User user)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.UserServiceImplTest.java:updateUser(User user)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.UserServiceImpl.java:updateUser(User user)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.UserServiceImplTest.java:updateUser(User user)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -332,9 +332,9 @@
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.UserServiceImpl.java:countUserID(String userID)`
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.UserServiceImplTest.java:countUserID(String userID)`
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.UserServiceImpl.java:countUserID(String userID)`
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.UserServiceImplTest.java:countUserID(String userID)`
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |
 |:--------:|:--------:|:--------:|:--------:|:----:|
 |          |          |          |          |      |
 |          |          |          |          |      |
@@ -343,71 +343,71 @@
 
 
 ### VenueServiceImpl
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.VenueServiceImpl.java:findByVenueID(int id)`  
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.VenueServiceImplTest.java:findByVenueID(int id)`  
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |  
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.VenueServiceImpl.java:findByVenueID(int id)`  
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.VenueServiceImplTest.java:findByVenueID(int id)`  
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |  
 |:--------:|:--------:|:--------:|:--------:|:----:|  
-| 0 | Í¨¹ıÓĞĞ§ID²éÑ¯³¡¹İ | ·µ»Ø¶ÔÓ¦IDµÄ³¡¹İ¶ÔÏó |           ·µ»Ø¶ÔÓ¦IDµÄ³¡¹İ¶ÔÏó |ÕıÈ·      |  
-| 1 | Í¨¹ıÎŞĞ§ID²éÑ¯³¡¹İ | Å×³ö`EntityNotFoundException`Òì³£ |           Å×³ö`EntityNotFoundException`Òì³£ |ÕıÈ·      |
+| 0 | é€šè¿‡æœ‰æ•ˆIDæŸ¥è¯¢åœºé¦† | è¿”å›å¯¹åº”IDçš„åœºé¦†å¯¹è±¡ |           è¿”å›å¯¹åº”IDçš„åœºé¦†å¯¹è±¡ |æ­£ç¡®      |  
+| 1 | é€šè¿‡æ— æ•ˆIDæŸ¥è¯¢åœºé¦† | æŠ›å‡º`EntityNotFoundException`å¼‚å¸¸ |           æŠ›å‡º`EntityNotFoundException`å¼‚å¸¸ |æ­£ç¡®      |
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.VenueServiceImpl.java:findByVenueName(String venueName)`  
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.VenueServiceImplTest.java:findByVenueName(String venueName)`  
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |  
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.VenueServiceImpl.java:findByVenueName(String venueName)`  
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.VenueServiceImplTest.java:findByVenueName(String venueName)`  
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |  
 |:--------:|:--------:|:--------:|:--------:|:----:|  
-| 0 | Ãû³ÆÍêÈ«Æ¥ÅäÊ±²éÑ¯³¡¹İ | ·µ»Ø¶ÔÓ¦Ãû³ÆµÄ³¡¹İ¶ÔÏó |           ·µ»Ø¶ÔÓ¦Ãû³ÆµÄ³¡¹İ¶ÔÏó |ÕıÈ·      |
+| 0 | åç§°å®Œå…¨åŒ¹é…æ—¶æŸ¥è¯¢åœºé¦† | è¿”å›å¯¹åº”åç§°çš„åœºé¦†å¯¹è±¡ |           è¿”å›å¯¹åº”åç§°çš„åœºé¦†å¯¹è±¡ |æ­£ç¡®      |
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.VenueServiceImpl.java:findAll(Pageable pageable)`  
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.VenueServiceImplTest.java:findAll(Pageable pageable)`  
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |  
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.VenueServiceImpl.java:findAll(Pageable pageable)`  
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.VenueServiceImplTest.java:findAll(Pageable pageable)`  
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |  
 |:--------:|:--------:|:--------:|:--------:|:----:|  
-| 0 | ·ÖÒ³²ÎÊıÓĞĞ§Ê±²éÑ¯³¡¹İ | ·µ»Ø·ÖÒ³Êı¾İ£¨°üº¬Ò»Ìõ¼ÇÂ¼£© |           ·µ»Ø·ÖÒ³Êı¾İ£¨°üº¬Ò»Ìõ¼ÇÂ¼£© |ÕıÈ·      |
+| 0 | åˆ†é¡µå‚æ•°æœ‰æ•ˆæ—¶æŸ¥è¯¢åœºé¦† | è¿”å›åˆ†é¡µæ•°æ®ï¼ˆåŒ…å«ä¸€æ¡è®°å½•ï¼‰ |           è¿”å›åˆ†é¡µæ•°æ®ï¼ˆåŒ…å«ä¸€æ¡è®°å½•ï¼‰ |æ­£ç¡®      |
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.VenueServiceImpl.java:findAll()`  
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.VenueServiceImplTest.java:findAll()`  
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |  
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.VenueServiceImpl.java:findAll()`  
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.VenueServiceImplTest.java:findAll()`  
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |  
 |:--------:|:--------:|:--------:|:--------:|:----:|  
-| 0 | ·Ç·ÖÒ³²éÑ¯ËùÓĞ³¡¹İ | ·µ»Ø³¡¹İÁĞ±í£¨°üº¬Ò»Ìõ¼ÇÂ¼£© |           ·µ»Ø³¡¹İÁĞ±í£¨°üº¬Ò»Ìõ¼ÇÂ¼£© |ÕıÈ·      |
+| 0 | éåˆ†é¡µæŸ¥è¯¢æ‰€æœ‰åœºé¦† | è¿”å›åœºé¦†åˆ—è¡¨ï¼ˆåŒ…å«ä¸€æ¡è®°å½•ï¼‰ |           è¿”å›åœºé¦†åˆ—è¡¨ï¼ˆåŒ…å«ä¸€æ¡è®°å½•ï¼‰ |æ­£ç¡®      |
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.VenueServiceImpl.java:create(Venue venue)`  
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.VenueServiceImplTest.java:create(Venue venue)`  
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |  
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.VenueServiceImpl.java:create(Venue venue)`  
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.VenueServiceImplTest.java:create(Venue venue)`  
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |  
 |:--------:|:--------:|:--------:|:--------:|:----:|  
-| 0 | ´´½¨ÓĞĞ§³¡¹İ | ·µ»ØÉú³ÉµÄ³¡¹İID£¨100£© |           ·µ»ØÉú³ÉµÄ³¡¹İID£¨100£© |ÕıÈ·      |  
-| 1 | ´´½¨ÖØ¸´Ãû³ÆµÄ³¡¹İ | Å×³ö`DataIntegrityViolationException`Òì³£ |           Å×³ö`DataIntegrityViolationException`Òì³£ |ÕıÈ·      |  
-| 2 | ´«Èë`null`´´½¨³¡¹İ | Å×³ö`IllegalArgumentException`Òì³£ |²»Å×³ö`IllegalArgumentException`Òì³£          |  ´íÎó    |
+| 0 | åˆ›å»ºæœ‰æ•ˆåœºé¦† | è¿”å›ç”Ÿæˆçš„åœºé¦†IDï¼ˆ100ï¼‰ |           è¿”å›ç”Ÿæˆçš„åœºé¦†IDï¼ˆ100ï¼‰ |æ­£ç¡®      |  
+| 1 | åˆ›å»ºé‡å¤åç§°çš„åœºé¦† | æŠ›å‡º`DataIntegrityViolationException`å¼‚å¸¸ |           æŠ›å‡º`DataIntegrityViolationException`å¼‚å¸¸ |æ­£ç¡®      |  
+| 2 | ä¼ å…¥`null`åˆ›å»ºåœºé¦† | æŠ›å‡º`IllegalArgumentException`å¼‚å¸¸ |ä¸æŠ›å‡º`IllegalArgumentException`å¼‚å¸¸          |  é”™è¯¯    |
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.VenueServiceImpl.java:update(Venue venue)`  
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.VenueServiceImplTest.java:update(Venue venue)`  
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |  
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.VenueServiceImpl.java:update(Venue venue)`  
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.VenueServiceImplTest.java:update(Venue venue)`  
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |  
 |:--------:|:--------:|:--------:|:--------:|:----:|  
-| 0 | ¸üĞÂÓĞĞ§³¡¹İ | µ÷ÓÃ±£´æ·½·¨ÎŞÒì³£ |           µ÷ÓÃ±£´æ·½·¨ÎŞÒì³£ |ÕıÈ·      |  
-| 1 | ´«Èë`null`¸üĞÂ³¡¹İ | Å×³ö`IllegalArgumentException`Òì³£ |    ²»Å×³ö`IllegalArgumentException`Òì³£      |   ´íÎó   |
+| 0 | æ›´æ–°æœ‰æ•ˆåœºé¦† | è°ƒç”¨ä¿å­˜æ–¹æ³•æ— å¼‚å¸¸ |           è°ƒç”¨ä¿å­˜æ–¹æ³•æ— å¼‚å¸¸ |æ­£ç¡®      |  
+| 1 | ä¼ å…¥`null`æ›´æ–°åœºé¦† | æŠ›å‡º`IllegalArgumentException`å¼‚å¸¸ |    ä¸æŠ›å‡º`IllegalArgumentException`å¼‚å¸¸      |   é”™è¯¯   |
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.VenueServiceImpl.java:delById(int id)`  
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.VenueServiceImplTest.java:delById(int id)`  
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |  
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.VenueServiceImpl.java:delById(int id)`  
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.VenueServiceImplTest.java:delById(int id)`  
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |  
 |:--------:|:--------:|:--------:|:--------:|:----:|  
-| 0 | É¾³ıÓĞĞ§IDµÄ³¡¹İ | µ÷ÓÃÉ¾³ı·½·¨ÎŞÒì³£ |           µ÷ÓÃÉ¾³ı·½·¨ÎŞÒì³£ |ÕıÈ·      |
+| 0 | åˆ é™¤æœ‰æ•ˆIDçš„åœºé¦† | è°ƒç”¨åˆ é™¤æ–¹æ³•æ— å¼‚å¸¸ |           è°ƒç”¨åˆ é™¤æ–¹æ³•æ— å¼‚å¸¸ |æ­£ç¡®      |
 
 
 
-**²âÊÔ¶ÔÏó**£º`src.main.java.com.demo.service.impl.VenueServiceImpl.java:countVenueName(String venueName)`  
-**²âÊÔº¯Êı**£º`test.java.com.demo.service.impl.VenueServiceImplTest.java:countVenueName(String venueName)`  
-| ÓÃÀı±àºÅ | ÓÃÀıÃèÊö | Ô¤ÆÚ½á¹û | ²âÊÔ½á¹û | ½áÂÛ |  
+**æµ‹è¯•å¯¹è±¡**ï¼š`src.main.java.com.demo.service.impl.VenueServiceImpl.java:countVenueName(String venueName)`  
+**æµ‹è¯•å‡½æ•°**ï¼š`test.java.com.demo.service.impl.VenueServiceImplTest.java:countVenueName(String venueName)`  
+| ç”¨ä¾‹ç¼–å· | ç”¨ä¾‹æè¿° | é¢„æœŸç»“æœ | æµ‹è¯•ç»“æœ | ç»“è®º |  
 |:--------:|:--------:|:--------:|:--------:|:----:|  
-| 0 | Í³¼Æ´æÔÚÆ¥ÅäÃû³ÆµÄ³¡¹İ | ·µ»ØÆ¥ÅäÊıÁ¿£¨2£© |           ·µ»ØÆ¥ÅäÊıÁ¿£¨2£© |ÕıÈ·      |
+| 0 | ç»Ÿè®¡å­˜åœ¨åŒ¹é…åç§°çš„åœºé¦† | è¿”å›åŒ¹é…æ•°é‡ï¼ˆ2ï¼‰ |           è¿”å›åŒ¹é…æ•°é‡ï¼ˆ2ï¼‰ |æ­£ç¡®      |
 
 
 
