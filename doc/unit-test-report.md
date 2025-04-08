@@ -68,9 +68,10 @@
 **测试函数**：`test.java.com.demo.service.impl.MessageVoServiceImplTest.java:returnMessageVoByMessageID(int messageID)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|TC1	| 有效messageID和userID	| 正确返回MessageVo对象，字段映射正确	| 验证所有字段匹配	| 通过 |
+|TC2	| 最小有效messageID(0)	| 抛出NullPointerException	| 触发异常并断言成功	| 通过 |
+|TC3	| message存在但关联用户不存在	| 抛出NullPointerException	| 触发异常并断言成功|	通过 |
+|TC4	| 输入不存在messageID	| 抛出NullPointerException	| 触发异常并断言成功|	通过 |
 
 
 
@@ -78,9 +79,10 @@
 **测试函数**：`test.java.com.demo.service.impl.MessageVoServiceImplTest.java:returnVo(List<Message> messages)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|   TC1       |   空列表输入       |     返回空列表     |    assertTrue(result.isEmpty()) 通过      |  通过    |
+| TC2	|单个元素列表	|返回包含1个正确MessageVo的列表|	字段验证通过|	通过|
+| TC3	|混合有效和无效元素的列表	|抛出NullPointerException	|触发异常并断言成功	|通过|
+| TC4	|重复元素列表	|返回包含2个元素的列表|	assertEquals(2, result.size()) 通过	|通过|
 
 
 
@@ -134,9 +136,7 @@
 **测试函数**：`test.java.com.demo.service.impl.OrderServiceImplTest.java:findById(int OrderID)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|TC1	|有效订单ID查询|	返回匹配的订单对象	|验证订单ID和用户ID匹配|	通过|
 
 
 
@@ -144,9 +144,7 @@
 **测试函数**：`test.java.com.demo.service.impl.OrderServiceImplTest.java:findDateOrder(int venueID, LocalDateTime startTime, LocalDateTime startTime2)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|TC1	|时间段内无订单|	返回空列表	|assertTrue(result.isEmpty()) 通过|	通过|
 
 
 
@@ -154,9 +152,7 @@
 **测试函数**：`test.java.com.demo.service.impl.OrderServiceImplTest.java:findUserOrder(String userID, Pageable pageable)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|TC1	|分页查询用户订单（多页数据）|	返回分页结果，验证元素数量	|验证分页参数和总数匹配	|通过|
 
 
 
@@ -164,29 +160,14 @@
 **测试函数**：`test.java.com.demo.service.impl.OrderServiceImplTest.java:updateOrder(int orderID, String venueName, LocalDateTime startTime, int hours, String userID)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
-
-
-
-**测试对象**：`src.main.java.com.demo.service.impl.OrderServiceImpl.java:submit(String venueName, LocalDateTime startTime, int hours, String userID)`
-**测试函数**：`test.java.com.demo.service.impl.OrderServiceImplTest.java:submit(String venueName, LocalDateTime startTime, int hours, String userID)`
-| 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
-|:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
-
+|TC1	|无效场馆名称更新订单	|抛出NullPointerException|	触发异常并断言成功	|通过|
 
 
 **测试对象**：`src.main.java.com.demo.service.impl.OrderServiceImpl.java:delOrder(int orderID)`
 **测试函数**：`test.java.com.demo.service.impl.OrderServiceImplTest.java:delOrder(int orderID)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|TC1	|确认有效订单状态变更	|更新状态为STATE_WAIT	|验证DAO调用状态更新	|通过|
 
 
 
@@ -194,9 +175,7 @@
 **测试函数**：`test.java.com.demo.service.impl.OrderServiceImplTest.java:confirmOrder(int orderID)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|TC1	|完成不存在的订单	|抛出RuntimeException|	触发异常并断言成功	|通过|
 
 
 
@@ -204,9 +183,8 @@
 **测试函数**：`test.java.com.demo.service.impl.OrderServiceImplTest.java:finishOrder(int orderID)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|TC1	|完成不存在的订单	|抛出RuntimeException	|触发异常并断言成功	|通过|
+
 
 
 
@@ -214,30 +192,7 @@
 **测试函数**：`test.java.com.demo.service.impl.OrderServiceImplTest.java:rejectOrder(int orderID)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
-
-
-
-**测试对象**：`src.main.java.com.demo.service.impl.OrderServiceImpl.java:findNoAuditOrder(Pageable pageable)`
-**测试函数**：`test.java.com.demo.service.impl.OrderServiceImplTest.java:findNoAuditOrder(Pageable pageable)`
-| 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
-|:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
-
-
-
-**测试对象**：`src.main.java.com.demo.service.impl.OrderServiceImpl.java:findAuditOrder()`
-**测试函数**：`test.java.com.demo.service.impl.OrderServiceImplTest.java:findAuditOrder()`
-| 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
-|:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
-
+|TC1|	拒绝未审核订单|	更新状态为STATE_REJECT	|验证DAO调用状态更新	|通过|
 
 
 ### OrderVoServiceImpl
@@ -245,9 +200,8 @@
 **测试函数**：`test.java.com.demo.service.impl.OrderVoServiceImplTest.java:returnOrderVoByOrderID(int orderID)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|TC1	|有效订单ID查询	|返回包含正确场馆名称的OrderVo|	验证字段映射成功|	通过|
+|TC2	|无效订单ID查询	|抛出RuntimeException|	触发异常并断言成功	|通过|
 
 
 
@@ -255,9 +209,7 @@
 **测试函数**：`test.java.com.demo.service.impl.OrderVoServiceImplTest.java:returnVo(List<Order> list)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|TC1	|有效订单列表转换	|返回正确数量的OrderVo列表	|验证列表长度和字段映射	|通过|
 
 
 
@@ -266,19 +218,8 @@
 **测试函数**：`test.java.com.demo.service.impl.UserServiceImplTest.java:findByUserID(String userID)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
-
-
-
-**测试对象**：`src.main.java.com.demo.service.impl.UserServiceImpl.java:findById(int id)`
-**测试函数**：`test.java.com.demo.service.impl.UserServiceImplTest.java:findById(int id)`
-| 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
-|:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|TC1|	有效用户ID查询	|返回匹配的用户对象	|验证用户核心字段正确性	|通过|
+|TC2| 不存在的用户ID查询	|返回null	|assertNull 通过	|通过|
 
 
 
@@ -286,9 +227,9 @@
 **测试函数**：`test.java.com.demo.service.impl.UserServiceImplTest.java:findByUserID(Pageable pageable)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|TC1	|分页查询普通用户	|返回分页数据	|验证分页元素数量和总数	|通过|
+|TC2	|空结果分页查询	|返回空页	|assertTrue(result.isEmpty()) 通过	|通过|
+
 
 
 
@@ -296,9 +237,8 @@
 **测试函数**：`test.java.com.demo.service.impl.UserServiceImplTest.java:checkLogin(String userID, String password)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|TC1|	正确用户名和密码登录	|返回用户对象	|assertEquals 验证对象匹配	|通过|
+|TC2|	错误密码登录	|返回null	|assertNull 通过	|通过|
 
 
 
@@ -306,9 +246,8 @@
 **测试函数**：`test.java.com.demo.service.impl.UserServiceImplTest.java:create(User user)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|TC1	|创建新用户	|返回当前用户总数+1	|验证总数和字段保存正确性	|通过|
+
 
 
 
@@ -316,9 +255,9 @@
 **测试函数**：`test.java.com.demo.service.impl.UserServiceImplTest.java:delByID(int id)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|TC1	|删除存在的用户|	无异常抛出	|assertDoesNotThrow 通过	|通过|
+
+
 
 
 
@@ -326,9 +265,8 @@
 **测试函数**：`test.java.com.demo.service.impl.UserServiceImplTest.java:updateUser(User user)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|TC1	|更新存在的用户信息	|保存修改后的用户数据	|验证更新字段正确性|	通过|
+|TC2	|更新不存在的用户	|静默保存新用户	|verify DAO保存操作触发|	通过|
 
 
 
@@ -336,9 +274,8 @@
 **测试函数**：`test.java.com.demo.service.impl.UserServiceImplTest.java:countUserID(String userID)`
 | 用例编号 | 用例描述 | 预期结果 | 测试结果 | 结论 |
 |:--------:|:--------:|:--------:|:--------:|:----:|
-|          |          |          |          |      |
-|          |          |          |          |      |
-|          |          |          |          |      |
+|TC1	|统计存在的用户ID	|返回计数1	|assertEquals(1, count)|	通过|
+|TC2	|统计不存在的用户ID|	返回计数0	|assertEquals(0, count)|	通过|
 
 
 
