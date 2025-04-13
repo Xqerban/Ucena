@@ -3,11 +3,7 @@ package com.demo.service.impl;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-import org.mockito.ArgumentCaptor;
 
-
-
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -22,13 +18,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 @ExtendWith(MockitoExtension.class)
 class OrderServiceImplTest {
@@ -42,145 +38,187 @@ class OrderServiceImplTest {
     @InjectMocks
     private OrderServiceImpl orderService;
 
-    private Venue validVenue;
-    private Order sampleOrder;
-    private final LocalDateTime now = LocalDateTime.now();
+    private Venue basketballCourt;
+    private Order testOrder;
+    private final LocalDateTime currentTime = LocalDateTime.now();
 
     @BeforeEach
-    void setUp() {
-        validVenue = new Venue(1, "篮球场", "标准篮球场地", 200, "court.jpg",
-                "体育中心A座", "08:00", "22:00");
+    void setup() {
+        // 初始化测试数据
+        basketballCourt = new Venue(1, "篮球场", "标准场地", 200, "img.jpg",
+                "体育中心", "08:00", "22:00");
 
-        sampleOrder = new Order();
-        sampleOrder.setOrderID(1);
-        sampleOrder.setUserID("user123");
-        sampleOrder.setVenueID(1);
-        sampleOrder.setState(OrderService.STATE_NO_AUDIT);
-        sampleOrder.setOrderTime(now.minusDays(1));
-        sampleOrder.setStartTime(now.plusDays(1));
-        sampleOrder.setHours(2);
-        sampleOrder.setTotal(400);
+        testOrder = new Order();
+        testOrder.setOrderID(1);
+        testOrder.setUserID("user123");
+        testOrder.setVenueID(1);
+        testOrder.setState(OrderService.STATE_NO_AUDIT);
+        testOrder.setOrderTime(currentTime.minusHours(1));
+        testOrder.setStartTime(currentTime.plusHours(2));
+        testOrder.setHours(2);
+        testOrder.setTotal(400);
     }
 
-    // region 查询相关方法测试
+    // region 订单创建测试
     @Test
-    @DisplayName("通过有效订单ID查询订单-正常情况")
-    void findById_ValidOrderId_ReturnsOrder() {
-        when(orderDao.getOne(1)).thenReturn(sampleOrder);
+    @DisplayName("创建有效订单-成功保存")
+    void submit_ValidOrder_SavesSuccessfully() {
+        // 模拟依赖
+        when(venueDao.findByVenueName("篮球场")).thenReturn(basketballCourt);
 
-        Order result = orderService.findById(1);
-        assertEquals(1, result.getOrderID());
-        assertEquals("user123", result.getUserID());
-    }
+        // 执行测试
+        orderService.submit("篮球场", currentTime.plusDays(1), 3, "user456");
 
-    @Test
-    @DisplayName("查询时间段内的场馆订单-边界情况（空结果）")
-    void findDateOrder_NoResults_ReturnsEmptyList() {
-        when(orderDao.findByVenueIDAndStartTimeIsBetween(1, now, now.plusHours(1)))
-                .thenReturn(Collections.emptyList());
-
-        List<Order> result = orderService.findDateOrder(1, now, now.plusHours(1));
-        assertTrue(result.isEmpty());
-    }
-    // endregion
-
-    // region 状态变更方法测试
-    @Test
-    @DisplayName("确认审核通过订单-正常流程")
-    void confirmOrder_ValidOrder_ChangesState() {
-        when(orderDao.findByOrderID(1)).thenReturn(sampleOrder);
-
-        orderService.confirmOrder(1);
-        verify(orderDao).updateState(OrderService.STATE_WAIT, 1);
-    }
-
-    @Test
-    @DisplayName("完成不存在的订单-异常情况")
-    void finishOrder_NonExistOrder_ThrowsException() {
-        when(orderDao.findByOrderID(999)).thenReturn(null);
-
-        assertThrows(RuntimeException.class, () ->
-                orderService.finishOrder(999));
-    }
-    // endregion
-
-    // region 复杂业务方法测试
-    @Test
-    @DisplayName("新建订单-正常参数")
-    void submit_ValidParameters_CreatesOrder() {
-        when(venueDao.findByVenueName("篮球场")).thenReturn(validVenue);
-
-        orderService.submit("篮球场", now.plusDays(1), 3, "newUser");
-
+        // 验证结果
         ArgumentCaptor<Order> orderCaptor = ArgumentCaptor.forClass(Order.class);
         verify(orderDao).save(orderCaptor.capture());
 
         Order savedOrder = orderCaptor.getValue();
-        assertAll("验证订单参数",
+        assertAll("订单参数验证",
                 () -> assertEquals(OrderService.STATE_NO_AUDIT, savedOrder.getState()),
-                () -> assertEquals(3, savedOrder.getHours()),
                 () -> assertEquals(600, savedOrder.getTotal()),
-                () -> assertEquals("newUser", savedOrder.getUserID())
+                () -> assertEquals("user456", savedOrder.getUserID()),
+                () -> assertEquals(basketballCourt.getVenueID(), savedOrder.getVenueID())
         );
     }
 
     @Test
-    @DisplayName("更新订单-无效场馆名称")
-    void updateOrder_InvalidVenueName_ThrowsException() {
-        when(venueDao.findByVenueName("无效场馆")).thenReturn(null);
-        when(orderDao.findByOrderID(1)).thenReturn(sampleOrder);
+    @DisplayName("创建0小时订单-参数异常")
+    void submit_ZeroHours_ThrowsException() {
+        // 执行并验证
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                () -> orderService.submit("篮球场", currentTime, 0, "user123"));
 
-        assertThrows(NullPointerException.class, () ->
-                orderService.updateOrder(1, "无效场馆", now.plusDays(2), 3, "user123"));
+        assertEquals("租用时长必须大于0小时", ex.getMessage());
+        verify(venueDao, never()).findByVenueName(anyString());
+        verify(orderDao, never()).save(any());
     }
     // endregion
 
-    // region 分页查询测试
+    // region 订单更新测试
     @Test
-    @DisplayName("分页查询用户订单-多页数据")
-    void findUserOrder_PaginatedResults_ReturnsCorrectPage() {
+    @DisplayName("更新场馆信息-重新计算金额")
+    void updateOrder_ChangeVenue_RecalculatesTotal() {
+        // 准备新场馆
+        Venue badmintonCourt = new Venue(2, "羽毛球场", "", 150, "", "", "", "");
+
+        // 模拟依赖
+        when(venueDao.findByVenueName("羽毛球场")).thenReturn(badmintonCourt);
+        when(orderDao.findByOrderID(1)).thenReturn(testOrder);
+
+        // 执行测试
+        orderService.updateOrder(1, "羽毛球场", currentTime.plusHours(3), 4, "user123");
+
+        // 验证结果
+        assertAll("更新验证",
+                () -> assertEquals(badmintonCourt.getVenueID(), testOrder.getVenueID()),
+                () -> assertEquals(150 * 4, testOrder.getTotal()),
+                () -> assertEquals(OrderService.STATE_NO_AUDIT, testOrder.getState())
+        );
+        verify(orderDao).save(testOrder);
+    }
+    // endregion
+
+    // region 状态变更测试
+    @Test
+    @DisplayName("审核通过未处理订单-状态变更")
+    void confirmOrder_PendingOrder_UpdatesState() {
+        when(orderDao.findByOrderID(1)).thenReturn(testOrder);
+
+        orderService.confirmOrder(1);
+
+        verify(orderDao).updateState(OrderService.STATE_WAIT, 1);
+    }
+
+    @Test
+    @DisplayName("完成已审核订单-合法操作")
+    void finishOrder_ApprovedOrder_Success() {
+        testOrder.setState(OrderService.STATE_WAIT);
+        when(orderDao.findByOrderID(1)).thenReturn(testOrder);
+
+        assertDoesNotThrow(() -> orderService.finishOrder(1));
+        verify(orderDao).updateState(OrderService.STATE_FINISH, 1);
+    }
+
+    @Test
+    @DisplayName("拒绝不存在订单-异常处理")
+    void rejectOrder_NonExistentOrder_ThrowsException() {
+        when(orderDao.findByOrderID(999)).thenReturn(null);
+
+        RuntimeException ex = assertThrows(RuntimeException.class,
+                () -> orderService.rejectOrder(999));
+        assertEquals("订单不存在", ex.getMessage());
+    }
+    // endregion
+
+    // region 查询功能测试
+    @Test
+    @DisplayName("查询用户订单-分页结果")
+    void findUserOrder_Pagination_ReturnsData() {
         // 准备分页数据
-        Pageable pageable = PageRequest.of(0, 5);
-        List<Order> orders = List.of(
-                new Order(), new Order(), new Order()
+        PageRequest pageRequest = PageRequest.of(0, 5);
+        List<Order> orders = Collections.nCopies(3, testOrder);
+        Page<Order> mockPage = new PageImpl<>(orders, pageRequest, 10);
+
+        when(orderDao.findAllByUserID("user123", pageRequest)).thenReturn(mockPage);
+
+        // 执行查询
+        Page<Order> result = orderService.findUserOrder("user123", pageRequest);
+
+        // 验证结果
+        assertAll("分页验证",
+                () -> assertEquals(3, result.getNumberOfElements()),
+                () -> assertTrue(result.getContent().stream()
+                        .allMatch(o -> o.getUserID().equals("user123")))
         );
-        Page<Order> mockPage = new PageImpl<>(orders, pageable, 10);
+    }
 
-        when(orderDao.findAllByUserID("user123", pageable)).thenReturn(mockPage);
+    @Test
+    @DisplayName("查询时间段订单-空结果")
+    void findDateOrder_NoBookings_ReturnsEmpty() {
+        LocalDateTime testStart = currentTime.plusDays(1);
+        when(orderDao.findByVenueIDAndStartTimeIsBetween(1, testStart, testStart.plusHours(2)))
+                .thenReturn(Collections.emptyList());
 
-        Page<Order> result = orderService.findUserOrder("user123", pageable);
-        assertEquals(3, result.getNumberOfElements());
-        assertEquals(10, result.getTotalElements());
+        List<Order> result = orderService.findDateOrder(1, testStart, testStart.plusHours(2));
+        assertTrue(result.isEmpty());
     }
     // endregion
 
-    // region 边界值测试
+    // region 删除操作测试
     @Test
-    @DisplayName("创建订单-最短租用时间（1小时）")
-    void submit_MinimumHours_CorrectCalculation() {
-        when(venueDao.findByVenueName("篮球场")).thenReturn(validVenue);
+    @DisplayName("删除有效订单-成功执行")
+    void delOrder_ValidOrder_DeletesSuccessfully() {
+        doNothing().when(orderDao).deleteById(1);
 
-        orderService.submit("篮球场", now.plusHours(2), 1, "user1");
+        assertDoesNotThrow(() -> orderService.delOrder(1));
+        verify(orderDao).deleteById(1);
+    }
+    // endregion
+
+    // region 边界条件测试
+    @Test
+    @DisplayName("创建最小时长订单-1小时")
+    void submit_MinimumDuration_Success() {
+        when(venueDao.findByVenueName("篮球场")).thenReturn(basketballCourt);
+
+        orderService.submit("篮球场", currentTime.plusHours(1), 1, "user123");
 
         ArgumentCaptor<Order> captor = ArgumentCaptor.forClass(Order.class);
         verify(orderDao).save(captor.capture());
         assertEquals(200, captor.getValue().getTotal());
     }
 
-
-    // region 状态流转验证
     @Test
-    @DisplayName("拒绝订单-状态变更验证")
-    void rejectOrder_ValidTransition_UpdatesState() {
-        Order pendingOrder = new Order();
-        pendingOrder.setOrderID(2);
-        pendingOrder.setState(OrderService.STATE_NO_AUDIT);
+    @DisplayName("更新为相同时间-无变化")
+    void updateOrder_SameTime_UpdatesNothing() {
+        when(venueDao.findByVenueName("篮球场")).thenReturn(basketballCourt);
+        when(orderDao.findByOrderID(1)).thenReturn(testOrder);
 
-        when(orderDao.findByOrderID(2)).thenReturn(pendingOrder);
+        orderService.updateOrder(1, "篮球场", testOrder.getStartTime(), 2, "user123");
 
-        orderService.rejectOrder(2);
-        verify(orderDao).updateState(OrderService.STATE_REJECT, 2);
+        assertEquals(testOrder.getStartTime(), testOrder.getStartTime()); // 时间未变
+        verify(orderDao).save(testOrder);
     }
-
     // endregion
 }

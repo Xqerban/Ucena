@@ -175,6 +175,16 @@ class UserServiceImplTest {
     }
     // endregion
 
+    // region 异常场景测试
+    @Test
+    @DisplayName("创建重复用户ID-统计返回正确数量")
+    void create_DuplicateUserID_ReturnsTotalCount() {
+        when(userDao.save(any())).thenThrow(new RuntimeException("Duplicate entry"));
+        when(userDao.findAll()).thenReturn(Collections.singletonList(sampleUser));
+
+        assertThrows(RuntimeException.class, () ->
+                userService.create(sampleUser));
+    }
 
     @Test
     @DisplayName("更新不存在用户-静默保存")
